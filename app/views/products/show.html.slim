@@ -1,0 +1,10 @@
+article.product-expanded: .row
+    .span10
+        h2 data-editable=(admin?) data-id=@product.id data-field="title" = @product.title
+        - unless @product.product_images.empty?
+            = image_tag @product.product_images.first.path.url
+
+    .span2
+        h3 Preço
+        = number_to_currency @product.price
+        = link_to "Comprar", "/comprar/#{@product.id}", class: "btn"

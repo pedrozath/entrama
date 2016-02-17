@@ -1,0 +1,14 @@
+.row: section.collections 
+    - 20.times do 
+        = render Collection.all
+
+- if admin?
+    .row: section.admin-area
+        = form_for Product.new, multipart: true do |f| 
+            h2 Adicionar novo produto
+            = f.text_field :title, placeholder: "Nome do produto"
+            = f.number_field :quantity, placeholder: "Quantidade em estoque"
+            = f.text_field :price, placeholder: "Preço"
+            = f.text_area :description, rows: 4, placeholder: "Descrição"
+            = f.file_field :images, multiple: true
+            = f.button "Adicionar novo produto"

@@ -1,0 +1,12 @@
+- if @basket.empty?
+    p Não há ítens na sua cesta
+- else
+    
+    section.compras: .row: .span6.offset2
+        h2 Cesta de compras
+        = render "custos"
+
+        - if @frete
+            = link_to "Finalizar compra", "/checkout", class: "btn"
+        - else
+            = render "calculo_frete"

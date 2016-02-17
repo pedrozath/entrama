@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  size: MyString
+  type: 
+  garb_type: MyString
+  fabric: MyString
+  color: MyString
+
+two:
+  size: MyString
+  type: 
+  garb_type: MyString
+  fabric: MyString
+  color: MyString

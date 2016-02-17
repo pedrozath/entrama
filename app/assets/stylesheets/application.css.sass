@@ -1,0 +1,177 @@
+@import font-awesome
+
+$black: #000
+
+table
+    width: 100%
+    border-collapse: collapse
+    
+    tr
+
+        th, td
+            padding: 10px
+            text-align: left
+
+        th
+
+        td 
+            border-top: 1px solid $black
+
+    tfooter td
+        font-weight: bold
+
+
+h1, h2, h3, h4, h5
+    margin: 0
+    padding: 0
+
+.row
+    display: table
+    width: 100%
+
+    > *
+        float: left
+
+        > img
+            width: 100%
+
+$num-columns: 12
+$column-width: 100% / $num-columns
+
+@for $i from 1 through $num-columns
+    .span#{$i}
+        width: $column-width * $i
+
+    .offset#{$i}
+        margin-left: $column-width * $i
+
+*
+    box-sizing: border-box
+
+body
+    padding: 20px
+    margin: 0
+    font-family: Simple
+    font-size: 14pt
+
+.price
+    font-size: 14px
+    // display: block
+
+.admin-bar
+    position: fixed
+    right: 0
+    top: 0
+    padding: 20px
+
+.basket-btn
+    position: absolute
+    right: 0
+    top: 0
+    padding: 10px
+    z-index: 2
+
+.compras
+    // text-align: center
+
+    > .row > * > *
+        margin-bottom: 40px
+
+header
+    left: 0
+    top: 0
+    padding: 10px
+    position: fixed
+
+footer
+    padding: 20px
+    position: fixed
+    bottom: 0
+    left: 0
+    width: 100%
+    background-color: #fff
+    text-align: center
+    text-transform: uppercase
+    font-size: 14px
+    letter-spacing: 2px
+
+section
+    overflow: hidden
+
+a
+    color: $black
+
+ul
+    padding: 0
+    margin: 0
+
+    li
+        display: block
+
+h2
+    text-transform: uppercase
+
+.btn, .small-btn
+    background-color: $black
+    text-transform: uppercase
+    text-decoration: none
+    color: #fff
+    display: inline-block
+    z-index: 2
+    position: relative
+
+.btn
+    padding: 5px
+    font-size: 20px
+
+.small-btn
+    font-size: 12px
+    padding: 3px
+    border-radius: 3px
+
+input, textarea, button
+    display: block
+    width: 100%
+    padding: 10px
+    margin-bottom: 10px
+    font-size: 14pt
+    font-family: Simple
+
+section
+    display: block
+
+.push-right
+    float: right
+
+main
+    padding-left: 200px
+    padding-bottom: 60px
+    padding-top: 100px
+
+.product-expanded
+    > .row > * > *
+        margin-bottom: 20px
+    h2
+        text-align: center
+
+.products 
+    margin: -5px
+
+    .caption
+        text-align: center
+
+    article
+        width: 200px
+        height: auto
+        float: left
+        margin: 5px
+        position: relative
+        z-index: 2
+
+        img
+            width: 100%
+            padding: 10px
+
+        .caption
+            a
+                text-decoration: none

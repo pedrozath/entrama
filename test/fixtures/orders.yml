@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  address: MyText
+  freight: 1.5
+  status: MyString
+  message: MyString
+
+two:
+  address: MyText
+  freight: 1.5
+  status: MyString
+  message: MyString

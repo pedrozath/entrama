@@ -1,0 +1,30 @@
+doctype html
+html
+head
+    title ENTRAMA
+    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+
+body 
+    - if admin?
+        .admin-bar
+            | Você está no modo admin /
+            = link_to "Sair", "/admin", method: :delete
+    
+    .gui
+        = link_to "/cesta", class: "basket-btn push-right"
+            = fa_icon "shopping-basket"
+            = session[:basket].size
+            |  itens na cesta
+
+    header
+        = link_to "/"
+            = image_tag "logo-entrama.png", class: "logo"
+        / nav: ul
+            li = link_to "sobre", "/sobre"
+            li = link_to "contato", "/sobre"
+
+    main = yield
+    footer
+        | Entrama 2016 © Todos direitos reservados 

@@ -1,0 +1,21 @@
+p Por favor, digite o seu CEP abaixo calcularmos o frete.
+
+form action="http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx"
+    input placeholder="CEP" name="sCepDestino"
+    input type="hidden" name="nCdEmpresa" value=""
+    input type="hidden" name="sDsSenha" value=""
+    input type="hidden" name="nCdServico" value="40010"
+    input type="hidden" name="sCepOrigem" value="03131010"
+    input type="hidden" name="nCdFormato" value="1"
+    input type="hidden" name="nVlComprimento" value="20"
+    input type="hidden" name="nVlAltura" value="12"
+    input type="hidden" name="nVlLargura" value="12"
+    input type="hidden" name="nVlDiametro" value="12"
+    input type="hidden" name="nVlPeso" value="12"
+    input type="hidden" name="sCdMaoPropria" value="N"
+    input type="hidden" name="nVlValorDeclarado" value="0"
+    input type="hidden" name="sCdAvisoRecebimento" value="N"
+    input type="hidden" name="StrRetorno" value="http://179.228.14.226:5000/frete"
+    input type="hidden" name="nIndicaCalculo" value="3"
+
+    button Calcular
