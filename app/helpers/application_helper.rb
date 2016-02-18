@@ -1,6 +1,6 @@
 module ApplicationHelper
     def admin?
-        session[:password] == ENV["PASSWORD"]
+        if session[:password] == ENV["PASSWORD"] then true else nil end
     end
 
     def total_cost_in_basket

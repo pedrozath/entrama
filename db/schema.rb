@@ -11,15 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160217212858) do
+ActiveRecord::Schema.define(version: 20160218020940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "collections", force: :cascade do |t|
     t.string   "title"
-    t.integer  "quantity"
-    t.float    "price"
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -32,12 +30,24 @@ ActiveRecord::Schema.define(version: 20160217212858) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "images", force: :cascade do |t|
-    t.string   "file"
-    t.integer  "imageable_id"
-    t.string   "imageable_type"
+  create_table "icons", force: :cascade do |t|
+    t.integer  "image_id"
+    t.integer  "product_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+  end
+
+  create_table "photos", force: :cascade do |t|
+    t.integer  "image_id"
+    t.integer  "product_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string   "file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "order_products", force: :cascade do |t|
@@ -58,12 +68,14 @@ ActiveRecord::Schema.define(version: 20160217212858) do
 
   create_table "products", force: :cascade do |t|
     t.string   "size"
-    t.string   "type"
     t.string   "garb_type"
     t.string   "fabric"
     t.string   "color"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "quantity"
+    t.integer  "collection_id"
+    t.float    "price"
   end
 
 end

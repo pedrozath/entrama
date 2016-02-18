@@ -9,7 +9,9 @@ head
 body 
     - if admin?
         .admin-bar
-            | Você está no modo admin /
+            | Você está no modo admin /  
+            = link_to "Estoque", products_path
+            | /  
             = link_to "Sair", "/admin", method: :delete
     
     .gui

@@ -1,11 +1,14 @@
 class Editable
 	constructor: (options) ->
+		
 		for key, value of options 
 			this[key] = options[key]
 
+		@data = @element.data()
+		for key, value of @data
+			this[key] = @data[key]
+
 		@element.attr "contenteditable", "true"
-		@id = @element.data().id
-		@field = @element.data().field
 		@bind_events()
 
 	bind_events: ->
@@ -16,8 +19,8 @@ class Editable
 			, 1000
 
 	save: ->
-		console.log("save")
-		$.post "/products/#{@id}",
+		# console.log("save")
+		$.post "#{@path}",
 			field: @field
 			value: @element.html()
 			_method: "put"

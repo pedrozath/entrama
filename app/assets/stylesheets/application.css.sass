@@ -1,4 +1,6 @@
-@import font-awesome
+//=require "easyui"
+
+@import "font-awesome"
 
 $black: #000
 
@@ -60,7 +62,7 @@ body
 
 .admin-bar
     position: fixed
-    right: 0
+    left: 160px
     top: 0
     padding: 20px
 
@@ -129,7 +131,12 @@ h2
     padding: 3px
     border-radius: 3px
 
-input, textarea, button
+select
+    -webkit-appearance: none
+    -moz-appearance: none
+    appearance: none
+
+input, textarea, button, select
     display: block
     width: 100%
     padding: 10px
@@ -148,13 +155,13 @@ main
     padding-bottom: 60px
     padding-top: 100px
 
-.product-expanded
+.collection-expanded
     > .row > * > *
         margin-bottom: 20px
     h2
         text-align: center
 
-.products 
+.collections 
     margin: -5px
 
     .caption

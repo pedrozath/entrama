@@ -1,0 +1,23 @@
+table
+    thead
+        tr
+            th ícone
+            th coleção
+            th cor
+            th tamanho
+            th tipo
+            th tecido
+            th quantidade
+            th apagar
+    tbody
+        - for product in @products
+            tr
+                td = image_tag product.icon.image.file.url, width: 40
+                td = link_to product.collection.title, product.collection
+                td data-editable="true" data-path="products/#{product.id}" style="background-color:##{product.color}" data-field="color" = product.color
+                td data-editable="true" data-path="products/#{product.id}" data-field="size"      = product.size
+                td data-editable="true" data-path="products/#{product.id}" data-field="garb_type" = product.garb_type
+                td data-editable="true" data-path="products/#{product.id}" data-field="fabric" = product.fabric
+                td data-editable="true" data-path="products/#{product.id}" data-field="quantity"  = product.quantity
+                td = link_to (fa_icon :trash), product, method: :delete, data:{confirm: "Tem certeza Dandara?"}
+    tfooter

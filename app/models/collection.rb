@@ -1,6 +1,7 @@
 class Collection < ActiveRecord::Base
     belongs_to :element
-    has_many :images, as: :imageable
-    has_many :product
-    has_many :orders, through: :product
+    has_many :products
+    has_many :icons, through: :products
+    has_many :photos, through: :products
+    has_many :orders, through: :products
 end

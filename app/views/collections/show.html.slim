@@ -1,0 +1,48 @@
+article.collection-expanded: .row
+    - unless @collection.products.empty?
+        .span8
+            h2 data-editable=(admin?) data-id=@collection.id data-field="title" data-path="" = @collection.title
+            - if @collection.products.any?
+                = image_tag @collection.products.first.icon.image.file.url
+
+        .span4
+            table
+
+            
+            = number_to_currency @collection.products.first.price
+            = link_to "Comprar", "/comprar/#{@collection.id}", class: "btn"
+
+    - if admin?
+        .row: section.admin-area
+            = debug params
+
+            h2 Adicionar uma vestimenta dentro desta coleção
+            = form_for [@collection, @product] do |f|
+                = f.select       :size, Product.all.collect(&:size).uniq.unshift("Escolha um tamanho existente")
+                = f.text_field   :size, placeholder: "ou incluia outro tamanho"
+                
+                = f.select       :garb_type,  Product.all.collect(&:garb_type).uniq.unshift("Escolha um tipo de roupa existente")
+                = f.text_field   :garb_type,  placeholder: "ou incluia outro tipo de roupa"
+
+                = f.select       :fabric,     Product.all.collect(&:fabric).uniq.unshift("Escolha um tipo de tecido existente")
+                = f.text_field   :fabric,     placeholder: "ou inclua outro tipo de tecido"
+
+                = f.select       :color,      Product.all.collect(&:color).uniq.unshift("Escolha uma cor existente")
+                / - for color Product.all.collect(&:color).uniq in
+                = f.text_field   :color,      placeholder: "ou inclua uma nova cor"
+
+                = f.number_field :quantity,   placeholder: "quantidade"
+                = f.text_field   :price,      placeholder: "preço (ex: 59,99)"
+                
+                - @images = @collection.products.collect{|p|p.icon.image}
+                - unless @images.empty?
+                    h3 Utilizar uma imagem já existente como ícone
+                - for image in @images.uniq
+                    div style="display: inline-block"
+                        = f.radio_button :use_existing_image, image.id
+                        = link_to image.file.url, target: "blank"
+                            = image_tag image.file.url, width: 100
+                h3 Enviar uma imagem como ícone
+                = f.file_field :image
+                = f.hidden_field :type, value: "Vestimenta"
+                = f.button "Adicionar"

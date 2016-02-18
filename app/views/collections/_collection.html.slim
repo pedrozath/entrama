@@ -1,9 +1,10 @@
 article
     - if admin?
-        = link_to "remover", product, method: :delete, "data-confirm" => "Tem certeza?", class: "small-btn push-right"
-    - unless product.product_images.empty?
-        = link_to product
-            = image_tag product.product_images.first.path.url
+        = link_to "remover", collection, method: :delete, "data-confirm" => "Tem certeza?", class: "small-btn push-right"
+    - unless collection.products.empty?
+        = link_to collection
+            = image_tag collection.products.first.icon.image.file.url
     .caption 
-        = link_to product.title, product
-        .price = number_to_currency product.price
+        = link_to collection.title, collection
+        - unless collection.products.empty?
+            .price = number_to_currency collection.products.first.price
