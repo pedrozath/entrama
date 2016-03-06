@@ -1,6 +1,11 @@
 class ProductsController < ApplicationController
     def index
         @products = Product.all
+        products_json = Product.all
+        respond_to do |f|
+            f.json { render json: products_json, status: :ok }
+            f.html { }
+        end
     end
 
     def show
@@ -41,10 +46,10 @@ class ProductsController < ApplicationController
 
     def create
         @collection = Collection.find params[:collection_id]
-        @product = @collection.products.new params[:product].permit(:size,:garb_type,:fabric,:color,:quantity,:price)
+        @product = @collection.products.new params[:product].permit(:size,:garb_type,:fabric,:color,:quantity,:price,:image)
 
         if @product.valid?
-            puts @product.save
+            @product.save
 
             if params[:product].include? :image
                 @image = Image.create file: params[:product][:image]
@@ -54,9 +59,11 @@ class ProductsController < ApplicationController
 
             @product.create_icon image_id: @image.id
 
+            flash[:notice] = "Produto adicionado com sucesso"
         end
 
-        render controller: "collections", action: "show"
+        render "collections/show"
+        # render text: params
     end
 
     def destroy

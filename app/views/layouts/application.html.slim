@@ -7,6 +7,8 @@ head
     = csrf_meta_tags
 
 body 
+    - if flash[:notice]
+        .alert = flash[:notice]
     - if admin?
         .admin-bar
             | Você está no modo admin /  

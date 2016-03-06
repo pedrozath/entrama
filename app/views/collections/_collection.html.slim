@@ -3,7 +3,7 @@ article
         = link_to "remover", collection, method: :delete, "data-confirm" => "Tem certeza?", class: "small-btn push-right"
     - unless collection.products.empty?
         = link_to collection
-            = image_tag collection.products.first.icon.image.file.url
+            / = image_tag collection.products.first.icon.image.file.url
     .caption 
         = link_to collection.title, collection
         - unless collection.products.empty?

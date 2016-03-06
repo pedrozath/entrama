@@ -12,8 +12,10 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'slim-rails'
+gem 'slim-mustache'
 gem 'puma'
 gem 'carrierwave'
+gem 'simple_form'
 
 gem "font-awesome-rails"
 gem "pagseguro-oficial", "~> 2.4.0"
