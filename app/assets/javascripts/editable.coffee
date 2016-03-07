@@ -12,6 +12,7 @@ class Editable
 		@bind_events()
 
 	bind_events: ->
+
 		@element.on "keyup", =>
 			clearTimeout @save_timer
 			@save_timer = setTimeout =>
@@ -19,7 +20,6 @@ class Editable
 			, 1000
 
 	save: ->
-		# console.log("save")
 		$.post "#{@path}",
 			field: @field
 			value: @element.html()

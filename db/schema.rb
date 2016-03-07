@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160218020940) do
+ActiveRecord::Schema.define(version: 20160307145350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,8 +19,9 @@ ActiveRecord::Schema.define(version: 20160218020940) do
   create_table "collections", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "products_count"
   end
 
   create_table "elements", force: :cascade do |t|
@@ -33,15 +34,8 @@ ActiveRecord::Schema.define(version: 20160218020940) do
   create_table "icons", force: :cascade do |t|
     t.integer  "image_id"
     t.integer  "product_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
-  create_table "photos", force: :cascade do |t|
-    t.integer  "image_id"
-    t.integer  "product_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "images", force: :cascade do |t|
@@ -62,6 +56,13 @@ ActiveRecord::Schema.define(version: 20160218020940) do
     t.float    "freight"
     t.string   "status"
     t.string   "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "photos", force: :cascade do |t|
+    t.integer  "image_id"
+    t.integer  "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

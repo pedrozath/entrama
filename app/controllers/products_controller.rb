@@ -1,9 +1,8 @@
 class ProductsController < ApplicationController
     def index
-        @products = Product.all
-        products_json = Product.all
+        @products = Product.order(:created_at)
         respond_to do |f|
-            f.json { render json: products_json, status: :ok }
+            f.json { render json: @products.all.as_json(methods: :icon_image, include: :collection), status: :ok }
             f.html { }
         end
     end
@@ -13,57 +12,51 @@ class ProductsController < ApplicationController
 
     def update
         @product = Product.find params[:id]
-        # Product.where({
-        #     @product.
-        # })
- 
-        # @main_attributes = Product.first.attributes
-        # @main_attributes.delete("id")
-        # @main_attributes.delete("created_at")
-        # @main_attributes.delete("updated_at")
-        # @main_attributes.delete("price")
-        # @main_attributes.delete("quantity")
-        # @main_attributes[params[:field]] = params[:value]
+        
+        if params[:field] == "collection"
+            @product.collection = Collection.find_or_create_by title: params[:value]
+            @product.save
+            Collection.all.each do |c|
+                Collection.reset_counters c.id, :products
+            end
 
-        # puts @main_attributes
+        else
+            @product.update_attribute params[:field], params[:value].strip
 
-        # @duplicated_products = Product.where(@main_attributes)
-
-        # if @duplicated_products.size > 0
-        #     for duplicated_product in @duplicated_products
-        #         # puts @product.quantity, @product.quantity.class, @product.quantity.to_i, duplicated_product.quantity
-        #         @product.quantity = @product.quantity.to_i + duplicated_product.quantity.to_i
-        #         # puts @product.quantity
-        #         # duplicated_product.destroy
-        #     end
-        #     @product.save
-        # else
-        # end
-
-        @product.update_attribute params[:field], params[:value].strip
+        end
+        
         render nothing: true, status: :accepted
+
     end
 
     def create
-        @collection = Collection.find params[:collection_id]
-        @product = @collection.products.new params[:product].permit(:size,:garb_type,:fabric,:color,:quantity,:price,:image)
+        permitted_params = params[:product].permit(:size,:garb_type,:fabric,:color,:quantity,:price,:image)
+        if params.include? :collection_id
+            @collection = Collection.find params[:collection_id]
+            @product = @collection.products.new permitted_params
+        else
+            @product = Product.new permitted_params
+        end
 
         if @product.valid?
             @product.save
 
             if params[:product].include? :image
                 @image = Image.create file: params[:product][:image]
-            else
+            elsif params[:product].include? :use_existing_image
                 @image = Image.find params[:product][:use_existing_image]
             end
+            
+            if @image
+                @product.create_icon image_id: @image.id
+            end
 
-            @product.create_icon image_id: @image.id
-
-            flash[:notice] = "Produto adicionado com sucesso"
         end
 
-        render "collections/show"
-        # render text: params
+        respond_to do |f|
+            f.html { render "collections/show" }
+            f.js { render nothing: true, status: :created }
+        end
     end
 
     def destroy

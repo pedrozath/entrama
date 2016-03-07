@@ -1,5 +1,6 @@
 class CollectionsController < ApplicationController
     def index
+        @collections = Collection.where "products_count > 0"
     end
 
     def show
@@ -11,7 +12,6 @@ class CollectionsController < ApplicationController
         @collection = Collection.find params[:id]
         @collection.update_attribute params[:field], params[:value]
         render text: params
-        # @collection.update_attributes params
     end
 
     def create
