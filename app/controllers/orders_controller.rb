@@ -1,9 +1,7 @@
 class OrdersController < ApplicationController
     def create
         order = Order.new
-
         payment = PagSeguro::PaymentRequest.new
-
         payment.reference = order.id
         full_address = [request.protocol,request.host_with_port,request.fullpath].join
         payment.notification_url = full_address+"/pagamentos/notificacao"
@@ -30,7 +28,18 @@ class OrdersController < ApplicationController
         end
     end
 
-    def index
+    def add_product
+        Order.find(session[:basket]).products << Product.find(params[:product_id])
+        redirect_to "/basket"
+    end
+
+    def basket
+        @order = Order.find session[:basket]
+        render action: :show
+    end
+
+    def show
 
     end
+
 end

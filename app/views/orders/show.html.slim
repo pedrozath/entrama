@@ -1,0 +1,37 @@
+/ = debug @order.products
+
+h2 Cesta de compras
+table
+    thead
+        tr
+            td
+            td coleção
+            td tamanho
+            td tipo
+            td tecido
+            td qtd
+            td preço
+
+    tbody
+        - @order.product_list.each do |id, grouped_product|
+            tr
+                td = image_tag grouped_product.first.thumb, height: 60
+                td = grouped_product.first.collection.title
+                td = grouped_product.first.size
+                td = grouped_product.first.garb_type
+                td = grouped_product.first.fabric
+                td = grouped_product.size
+                td = number_to_currency grouped_product.first.price
+
+
+    tfooter
+        tr
+            td 
+            td 
+            td 
+            td 
+            td
+            td Total
+            td = number_to_currency @order.price
+
+= link_to "Finalizar pedido", "/check_out", class: "btn pull-right"

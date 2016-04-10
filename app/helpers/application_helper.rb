@@ -12,4 +12,14 @@ module ApplicationHelper
     def color_sample (color)
         content_tag :div, nil, class: "color-sample", style: "background-color: ##{color}"
     end
+
+    def basket
+        session[:basket] ||= Order.create(status: "aberto", session_id: session_id).id
+        Order.find session[:basket]
+    end
+
+    def session_id
+        session[:id] ||= SecureRandom.hex 
+    end
+
 end

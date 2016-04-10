@@ -18,6 +18,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'simple_form'
 
+gem 'markdown-rails'
 gem "font-awesome-rails"
 gem "pagseguro-oficial", "~> 2.4.0"
 

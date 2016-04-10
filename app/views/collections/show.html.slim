@@ -15,7 +15,7 @@ article.collection-expanded data-product-interface="true" data-selected-product=
                     {{/collection.different_products}}"
 
                     - for product in @collection.different_products
-                        li data-icon-id='{{id}}'= image_tag product.thumb
+                        li data-template-attr="'data-icon-id':'{{id}}'" data-icon-id="#{product.id}"= image_tag product.thumb
 
         .span4
             table.detalhes-do-produto
@@ -42,4 +42,4 @@ article.collection-expanded data-product-interface="true" data-selected-product=
                             - for color in @collection.colors
                                 = color_sample color
             
-            = link_to "Comprar", "/comprar/#{@collection.id}", class: "btn"
+            = link_to "Comprar", "/orders/buy/#{@product.id}", "data-template-attr" => "'href': '/orders/buy/{{id}}'", class: "btn"
