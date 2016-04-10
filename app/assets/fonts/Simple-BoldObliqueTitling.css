@@ -1,0 +1,12 @@
+/* Webfont: Simple-BoldObliqueTitling */@font-face {
+    font-family: 'SimpleTitling';
+    src: url('Simple-BoldObliqueTitling.eot'); /* IE9 Compat Modes */
+    src: url('Simple-BoldObliqueTitling.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('Simple-BoldObliqueTitling.woff') format('woff'), /* Modern Browsers */
+         url('Simple-BoldObliqueTitling.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('Simple-BoldObliqueTitling.svg#Simple-BoldObliqueTitling') format('svg'); /* Legacy iOS */
+    font-style: italic;
+    font-weight: bold;
+    text-rendering: optimizeLegibility;
+}
+

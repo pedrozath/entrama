@@ -1,0 +1,12 @@
+/* Webfont: Simple-Regular */@font-face {
+    font-family: 'Simple';
+    src: url('Simple-Regular.eot'); /* IE9 Compat Modes */
+    src: url('Simple-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('Simple-Regular.woff') format('woff'), /* Modern Browsers */
+         url('Simple-Regular.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('Simple-Regular.svg#Simple-Regular') format('svg'); /* Legacy iOS */
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+

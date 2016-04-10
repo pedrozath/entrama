@@ -1,8 +1,0 @@
-article
-    - unless collection.products.empty?
-        = link_to collection
-            = image_tag collection.icon_image
-    .caption 
-        = link_to collection.title, collection
-        - unless collection.products.empty?
-            .price = number_to_currency collection.products.first.price

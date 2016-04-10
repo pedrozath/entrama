@@ -1,0 +1,12 @@
+/* Webfont: Simple-BoldOblique */@font-face {
+    font-family: 'Simple';
+    src: url('Simple-BoldOblique.eot'); /* IE9 Compat Modes */
+    src: url('Simple-BoldOblique.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('Simple-BoldOblique.woff') format('woff'), /* Modern Browsers */
+         url('Simple-BoldOblique.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('Simple-BoldOblique.svg#Simple-BoldOblique') format('svg'); /* Legacy iOS */
+    font-style: italic;
+    font-weight: bold;
+    text-rendering: optimizeLegibility;
+}
+

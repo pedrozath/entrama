@@ -6,10 +6,7 @@ article.collection-expanded data-product-interface="true" data-selected-product=
                 = image_tag @product.icon_image, "data-template-attr" => "'src':'{{icon_image}}'", class:"display-icon"
             .row: .span12
                 p Produtos desta coleção
-                
-                ~#collection.icons
-                    .teste ~this
-                
+                                
                 ul.products data-template-content="
                     {{#collection.different_products}}
                         <li data-icon-id='{{id}}'>
@@ -17,8 +14,8 @@ article.collection-expanded data-product-interface="true" data-selected-product=
                         </li>
                     {{/collection.different_products}}"
 
-                    - for icon in @collection.thumbs
-                        li = image_tag icon
+                    - for product in @collection.different_products
+                        li data-icon-id='{{id}}'= image_tag product.thumb
 
         .span4
             table.detalhes-do-produto

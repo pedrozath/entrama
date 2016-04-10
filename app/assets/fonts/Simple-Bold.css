@@ -1,0 +1,12 @@
+/* Webfont: Simple-Bold */@font-face {
+    font-family: 'Simple';
+    src: url('Simple-Bold.eot'); /* IE9 Compat Modes */
+    src: url('Simple-Bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('Simple-Bold.woff') format('woff'), /* Modern Browsers */
+         url('Simple-Bold.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('Simple-Bold.svg#Simple-Bold') format('svg'); /* Legacy iOS */
+    font-style: normal;
+    font-weight: bold;
+    text-rendering: optimizeLegibility;
+}
+

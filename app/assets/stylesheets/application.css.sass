@@ -1,6 +1,6 @@
 //=require "easyui"
-
 @import "font-awesome"
+@import "fonts"
 
 $black: #000
 
@@ -40,9 +40,14 @@ h1, h2, h3, h4, h5
 
 ul.products
     li
+        width: 100px
+        height: 100px
         float: left
         padding: 0 10px
         cursor: pointer
+
+        img
+            width: 100%
 
 .row
     display: table
@@ -70,7 +75,7 @@ $column-width: 100% / $num-columns
 body
     padding: 20px
     margin: 0
-    font-family: Simple
+    font-family: $body-font
     font-size: 14pt
 
 .price
@@ -186,7 +191,7 @@ input, textarea, button, select
     padding: 10px
     margin-bottom: 10px
     font-size: 14pt
-    font-family: Simple
+    font-family: $body-font
 
 section
     display: block

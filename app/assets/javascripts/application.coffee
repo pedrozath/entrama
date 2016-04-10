@@ -11,13 +11,14 @@ class ProductInterface
             this[key] = options[key]
 
         @selected_product = @main_element.attr "data-selected-product"
-        @convert_to_template()
+        @converted_to_template = false
         @refresh()
         @bind_events()
 
     bind_events: =>
         $(".products li").click (e) =>
             @select $(e.currentTarget).attr "data-icon-id"
+            @convert_to_template() unless @converted_to_template
 
     convert_to_template: =>
         @main_element.find("[data-template-attr]").each (index, element) =>
@@ -31,6 +32,7 @@ class ProductInterface
             element.html element.attr("data-template-content")
 
         @template = @main_element.html()
+        @converted_to_template = true
 
     refresh: =>
         $.get "/products/#{@selected_product}.json", (data) =>
@@ -44,4 +46,4 @@ class ProductInterface
 $ -> 
     $(".product-crud").each -> new ProductCRUD main_element: $(this)
     $("[data-icon-manager]").each -> new IconManager main_element: $(this)
-    $("[data-product-interface]").each -> new ProductInterface main_element: $(this)
+    # $("[data-product-interface]").each -> new ProductInterface main_element: $(this)

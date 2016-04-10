@@ -18,6 +18,8 @@ class Product < ActiveRecord::Base
     def icon_image(version=nil)
         if self.icon
             self.icon.image.file.url version
+        else
+            ActionController::Base.helpers.asset_path("product-fallback.jpg")
         end
     end
 
