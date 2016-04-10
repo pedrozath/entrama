@@ -5,8 +5,12 @@ Rails.application.routes.draw do
 
     get "/orders/buy/:product_id" => "orders#add_product"
     get "/products/:id/edit_icon" => "products#edit_icon"
+
     get "/basket" => "orders#basket"
     get "/check_out" => "orders#check_out"
+    get "/payment/notification" => "orders#notification"
+    get "/payment/redirect" => "orders#redirect"
+    post "/payment/redirect" => "orders#redirect"
 
     resources :products
     resources :images

@@ -10,7 +10,8 @@ table
             td tipo
             td tecido
             td qtd
-            td preço
+            td preço unit.
+            td sub-total
 
     tbody
         - @order.product_list.each do |id, grouped_product|
@@ -22,6 +23,7 @@ table
                 td = grouped_product.first.fabric
                 td = grouped_product.size
                 td = number_to_currency grouped_product.first.price
+                td = number_to_currency grouped_product.first.price * grouped_product.size
 
 
     tfooter
@@ -30,6 +32,7 @@ table
             td 
             td 
             td 
+            td
             td
             td Total
             td = number_to_currency @order.price

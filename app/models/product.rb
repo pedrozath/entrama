@@ -31,11 +31,16 @@ class Product < ActiveRecord::Base
         ActionController::Base.helpers.number_to_currency price
     end
 
+    def title
+        [collection.title,id,garb_type,fabric,size].join "-"
+    end
+
     private
 
     def destroy_associated
         self.icon.delete if self.icon
         self.photos.delete_all
     end
+
 
 end
