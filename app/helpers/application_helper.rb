@@ -8,4 +8,8 @@ module ApplicationHelper
             total + Product.find(id).price * session[:basket].count(id)
         end
     end
+
+    def color_sample (color)
+        content_tag :div, nil, class: "color-sample", style: "background-color: ##{color}"
+    end
 end

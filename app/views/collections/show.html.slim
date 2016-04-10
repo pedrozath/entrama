@@ -1,48 +1,48 @@
-article.collection-expanded: .row
+article.collection-expanded data-product-interface="true" data-selected-product=@product.id : .row
     - unless @collection.products.empty?
         .span8
-            h2 data-editable=(admin?) data-id=@collection.id data-field="title" data-path="" = @collection.title
-            / - if @collection.products.any?
-                / = image_tag @collection.products.first.icon.image.file.url
+            .row: .span12
+                h2 = @collection.title
+                = image_tag @product.icon_image, "data-template-attr" => "'src':'{{icon_image}}'", class:"display-icon"
+            .row: .span12
+                p Produtos desta coleção
+                
+                ~#collection.icons
+                    .teste ~this
+                
+                ul.products data-template-content="
+                    {{#collection.different_products}}
+                        <li data-icon-id='{{id}}'>
+                            <img src='{{thumb}}'/>
+                        </li>
+                    {{/collection.different_products}}"
+
+                    - for icon in @collection.thumbs
+                        li = image_tag icon
 
         .span4
-            table
+            table.detalhes-do-produto
+                tbody
+                    tr
+                        td preço
+                        td data-template-content="{{formatted_price}}" = @product.formatted_price
 
+                    tr
+                        td tecido
+                        td data-template-content="{{fabric}}" = @product.fabric
+
+                    tr
+                        td tipo
+                        td data-template-content= "{{garb_type}}" = @product.garb_type
+
+                    tr
+                        td tamanhos disp.
+                        td = @collection.sizes
+
+                    tr
+                        td cores disp.
+                        td 
+                            - for color in @collection.colors
+                                = color_sample color
             
-            = number_to_currency @collection.products.first.price
             = link_to "Comprar", "/comprar/#{@collection.id}", class: "btn"
-
-    - if admin?
-        .row: section.admin-area
-            h2 Adicionar uma vestimenta dentro desta coleção
-            - if @product.errors.any?
-                ul
-                    - for error_message in @product.errors.messages
-                        li = error_message
-            = simple_form_for [@collection, @product] do |f|
-                = f.select  :size, Product.all.collect(&:size).uniq.unshift("Escolha um tamanho existente")
-                = f.input   :size, placeholder: "ou incluia outro tamanho", label: false
-                = f.select  :garb_type,  Product.all.collect(&:garb_type).uniq.unshift("Escolha um tipo de roupa existente")
-                = f.input   :garb_type,  placeholder: "ou incluia outro tipo de roupa", label: false
-                = f.select  :fabric,     Product.all.collect(&:fabric).uniq.unshift("Escolha um tipo de tecido existente")
-                = f.input   :fabric,     placeholder: "ou inclua outro tipo de tecido", label: false
-                = f.select  :color,      Product.all.collect(&:color).uniq.unshift("Escolha uma cor existente")
-                / - for color Product.all.collect(&:color).uniq in
-                = f.input   :color,      placeholder: "ou inclua uma nova cor", label: false
-                = f.number_field :quantity,   placeholder: "quantidade", label: false
-                = f.input   :price,      placeholder: "preço (ex: 59,99)", label: false
-
-                / - @images = @collection.products.collect{ |p| p.icon.image }
-                / - unless @images.empty?
-                    h3 Utilizar uma imagem já existente como ícone
-
-                / - for image in @images.uniq
-                    div style="display: inline-block"
-                        = f.radio_button :use_existing_image, image.id
-                        = link_to image.file.url, target: "blank"
-                            = image_tag image.file.url, width: 100
-
-                h3 Enviar uma imagem como ícone
-                = f.file_field :image
-                = f.hidden_field :type, value: "Vestimenta"
-                = f.button :button, "Adicionar"

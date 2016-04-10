@@ -1,16 +1,15 @@
 # encoding: utf-8
 
 class ImageUploader < CarrierWave::Uploader::Base
+    include CarrierWave::MiniMagick
+    storage :file
 
-  # Include RMagick or MiniMagick support:
-  # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+    def store_dir
+        "uploads/images/#{model.id}"
+    end
 
-  storage :file
-  # storage :fog
-
-  def store_dir
-    "uploads/images/#{model.id}"
-  end
+    version :thumb do
+        process resize_to_fit: [100,100]
+    end
 
 end

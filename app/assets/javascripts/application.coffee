@@ -2,65 +2,46 @@
 #= require jquery_ujs
 #= require mustache.min
 #= require turbolinks
+#= require product_crud
+#= require icon_manager
 
-class ProductCRUD
+class ProductInterface
     constructor: (options) ->
         for key, value of options 
             this[key] = options[key]
 
-        @data = @main_element.data()
-        for key, value of @data
-            this[key] = @data[key]
-
-        @template = @main_element.find(".template").html()
-        @read()
+        @selected_product = @main_element.attr "data-selected-product"
+        @convert_to_template()
+        @refresh()
+        @bind_events()
 
     bind_events: =>
-        @main_element.find("[data-crud=\"update\"]").each (index, field) =>
-            field = $(field)
-            field.on "keyup", =>
-                clearTimeout @save_timer
-                @save_timer = setTimeout =>
-                    @update(field)
-                , 1000
+        $(".products li").click (e) =>
+            @select $(e.currentTarget).attr "data-icon-id"
 
-            field.attr "contenteditable", "true"
+    convert_to_template: =>
+        @main_element.find("[data-template-attr]").each (index, element) =>
+            element = $(element)
+            eval "attributes = {"+element.attr("data-template-attr")+"}"
+            for key,value of attributes
+                element.attr key, value
 
-        $("[data-crud=\"new\"]").on "click", => @create()
-        $("[data-crud=\"destroy\"]").on "click", (e) => 
-            e.preventDefault()
-            @destroy($(e.currentTarget).attr("data-path"))
+        @main_element.find("[data-template-content]").each (index, element) =>
+            element = $(element)
+            element.html element.attr("data-template-content")
 
-    create: => 
-        $.post "/products.js", 
-            product:
-                garb_type: "Camiseta"
-                fabric: "Algodão"
-        , =>
-            console.log "created"
-            @read()
+        @template = @main_element.html()
 
-    read: => 
-        $.get "/products.json", {}, (data) =>
-            @crud_data = { produtos: data }
-            @main_element.html Mustache.render @template, @crud_data
+    refresh: =>
+        $.get "/products/#{@selected_product}.json", (data) =>
+            @main_element.html Mustache.render(@template, data)
             @bind_events()
 
-    update: (field) =>
-        $.post field.attr("data-path")+".json",
-            field: field.attr("data-field")
-            value: field.html()
-            _method: "put"
-        , =>
-            color = field.css "color"
-            field.css color: "#f00"
-            setTimeout =>
-                field.css color: color
-            , 200
-            @read()
+    select: (id) =>
+        @selected_product = id
+        @refresh()
 
-    destroy: (path) =>
-        if confirm("Tem certeza que quer apagar esse produto lindinha?")
-            $.post path+".json", _method: "delete", => @read()
-
-$ -> $(".product-crud").each -> new ProductCRUD main_element: $(this)
+$ -> 
+    $(".product-crud").each -> new ProductCRUD main_element: $(this)
+    $("[data-icon-manager]").each -> new IconManager main_element: $(this)
+    $("[data-product-interface]").each -> new ProductInterface main_element: $(this)

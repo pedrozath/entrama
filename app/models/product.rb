@@ -15,10 +15,18 @@ class Product < ActiveRecord::Base
 
     before_destroy :destroy_associated
 
-    def icon_image
+    def icon_image(version=nil)
         if self.icon
-            self.icon.image.file.url
+            self.icon.image.file.url version
         end
+    end
+
+    def thumb
+        icon_image :thumb
+    end
+
+    def formatted_price
+        ActionController::Base.helpers.number_to_currency price
     end
 
     private

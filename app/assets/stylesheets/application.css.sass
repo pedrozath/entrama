@@ -22,10 +22,27 @@ table
     tfooter td
         font-weight: bold
 
+.display-icon
+    max-height: 400px
+    width: auto !important
+    margin: 0 auto
+    display: block
+    padding: 20px
+
+.color-sample
+    width: 20px
+    height: 20px
+    display: inline-block
 
 h1, h2, h3, h4, h5
     margin: 0
     padding: 0
+
+ul.products
+    li
+        float: left
+        padding: 0 10px
+        cursor: pointer
 
 .row
     display: table
@@ -73,11 +90,38 @@ body
     padding: 10px
     z-index: 2
 
+[data-icon-manager]
+    ul
+        display: table
+        
+        li
+            border: 2px solid transparent
+            float: left
+            height: 120px
+            width: 120px
+            position: relative
+
+            .small-btn
+                position: absolute 
+                top: 0
+                right: 0
+
+            img
+                height: 100px
+                position: absolute
+                bottom: 0
+
+            &[data-selected-icon]
+                border-color: $black
+
 .compras
     // text-align: center
 
     > .row > * > *
         margin-bottom: 40px
+
+[data-image-picker]
+    cursor: pointer
 
 header
     left: 0

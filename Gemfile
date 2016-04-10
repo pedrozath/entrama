@@ -15,10 +15,13 @@ gem 'slim-rails'
 gem 'slim-mustache'
 gem 'puma'
 gem 'carrierwave'
+gem 'mini_magick'
 gem 'simple_form'
 
 gem "font-awesome-rails"
 gem "pagseguro-oficial", "~> 2.4.0"
+
+gem 'rails_12factor'
 
 group :development, :test do
   gem 'byebug'

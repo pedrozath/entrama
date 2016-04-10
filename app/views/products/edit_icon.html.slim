@@ -1,0 +1,24 @@
+h1 Produto #{@product.id} da Coleção #{@product.collection.title}
+
+div data-icon-manager="true" data-product-id=@product.id
+    - has_icon = @product.icon
+    h3 Ícone atual
+    - if has_icon
+        .actual = image_tag @product.icon_image, width: 200
+
+    - else
+        .actual = image_tag "", width: 200
+        code Este item não tem ícone selecionado
+
+    ul.icons 
+        - for image in Image.all
+            - if has_icon
+                - selected_image = image.id == @product.icon.image.id ? true : nil
+
+            = content_tag :li, "data-selected-icon"=>selected_image, "data-icon-id" => image.id
+                = link_to "apagar", image, class:"small-btn", method: :delete
+                = image_tag image.file.url
+
+    form
+        h3 Subir uma nova imagem
+        input type="file"

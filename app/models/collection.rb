@@ -9,7 +9,38 @@ class Collection < ActiveRecord::Base
         display_product.icon
     end
 
-    def display_product
-        self.products.first
+    def icon_image
+        display_product.icon_image
     end
+
+    def display_product
+        products.first
+    end
+
+    def sizes
+        sizes = products.collect(&:size).compact.uniq
+        sizes.join(", ")
+    end
+
+    def colors
+        products.collect(&:color).compact.uniq
+    end
+
+    def icons(version=nil)
+        products.map{|p| p.icon_image version}.uniq
+    end
+
+    def different_products
+        products.inject([]) do |memo, p|
+            if !memo.map{|m|m.icon_image}.include?(p.icon_image)
+                memo << p
+            end
+            memo
+        end
+    end
+
+    def thumbs
+        icons :thumb
+    end
+
 end
