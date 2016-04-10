@@ -7,3 +7,4 @@ development:
 production:
   adapter: postgresql
   host: localhost
+  database: entrama
