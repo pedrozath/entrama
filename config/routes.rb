@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     post "/admin" => "sessions#create"
     delete "/admin" => "sessions#destroy"
 
+    get "/sobre" => "pages#sobre"
+
     get "/orders/buy/:product_id" => "orders#add_product"
     get "/products/:id/edit_icon" => "products#edit_icon"
     get "/collections/:id/edit_art" => "collections#edit_art"

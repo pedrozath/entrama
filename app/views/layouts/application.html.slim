@@ -27,9 +27,8 @@ body
     header
         = link_to "/"
             = image_tag "logo-entrama.png", class: "logo"
-        / nav: ul
+        nav: ul
             li = link_to "sobre", "/sobre"
-            li = link_to "contato", "/sobre"
 
     main = yield
     footer
