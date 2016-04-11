@@ -31,6 +31,7 @@ class ProductCRUD
             product:
                 garb_type: "Camiseta"
                 fabric: "Algodão"
+                price: "30"
         , =>
             console.log "created"
             @read()
