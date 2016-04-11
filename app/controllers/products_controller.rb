@@ -2,7 +2,16 @@ class ProductsController < ApplicationController
     def index
         @products = Product.order(:created_at)
         respond_to do |f|
-            f.json { render json: @products.all.as_json(methods: [:icon_image], include: :collection), status: :ok }
+            f.json do 
+                render json: @products.all.as_json(methods: [:icon_image], include: {
+                    collection: {
+                        methods: [:art_image]
+                    }
+                })
+
+                # render json: Collection.first.as_json(methods: :art_image)
+            end
+
             f.html { }
         end
     end
@@ -11,14 +20,16 @@ class ProductsController < ApplicationController
         @product = Product.find params[:id]
         respond_to do |f|
             f.json do  
-                render json: @product.as_json(methods: [:icon_image, :formatted_price, :available_sizes], include: {
-                    collection: {
-                        include: { 
-                            different_products: {
-                                methods: [:thumb]
+                render json: @product.as_json(
+                    methods: [:icon_image, :formatted_price, :available_sizes], include: {
+                        collection: {
+                            methods: [:art_image],
+                            include: { 
+                                different_products: {
+                                    methods: [:thumb]
+                                }
                             }
                         }
-                    }
                 })
             end
 

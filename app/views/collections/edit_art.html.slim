@@ -1,0 +1,19 @@
+h1 = @collection.title
+
+div data-art-manager="true" data-collection-id=@collection.id
+    - has_art = @collection.art
+    h3 Arte atual
+    .actual = image_tag @collection.art_image, width: 200
+
+    ul.arts 
+        - for image in Image.all
+            - if has_art
+                - selected_image = image.id == @collection.art.image.id ? true : nil
+
+            = content_tag :li, "data-selected-art"=>selected_image, "data-art-id" => image.id
+                = link_to "apagar", image, class:"small-btn", method: :delete
+                = image_tag image.file.url
+
+    form
+        h3 Subir uma nova imagem
+        input type="file"

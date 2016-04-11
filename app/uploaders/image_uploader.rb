@@ -3,11 +3,6 @@
 class ImageUploader < CarrierWave::Uploader::Base
     include CarrierWave::MiniMagick
     storage :fog
-
-    def default_url(*args)
-        ActionController::Base.helpers.asset_path("fallback-product.jpg")
-    end
-
     version :thumb do
         process resize_to_fit: [100,100]
     end

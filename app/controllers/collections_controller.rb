@@ -10,7 +10,12 @@ class CollectionsController < ApplicationController
 
     def update
         @collection = Collection.find params[:id]
-        @collection.update_attribute params[:field], params[:value]
+        if params[:field] == "art"
+            @collection.art.destroy if @collection.art
+            @collection.create_art image_id: params[:value]
+        else
+            @collection.update_attribute params[:field], params[:value]
+        end
         render text: params
     end
 
@@ -22,5 +27,9 @@ class CollectionsController < ApplicationController
     def destroy
         Collection.find(params[:id]).destroy
         redirect_to :back
+    end
+
+    def edit_art
+        @collection = Collection.find params[:id]
     end
 end

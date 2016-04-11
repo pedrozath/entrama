@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
     get "/orders/buy/:product_id" => "orders#add_product"
     get "/products/:id/edit_icon" => "products#edit_icon"
+    get "/collections/:id/edit_art" => "collections#edit_art"
 
     get "/basket/remove_product/:product_id" => "orders#remove_product"
     get "/basket/add_product/:product_id" => "orders#add_product"
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
 
     resources :products
     resources :images
+    resources :collections
     resources :collections, path: "/" do
         resources :products
     end

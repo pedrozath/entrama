@@ -3,7 +3,11 @@
         article
             - unless collection.products.empty?
                 = link_to collection
-                    = image_tag collection.icon_image
+                    = image_tag collection.art_image, class: "art"
+            ul.products
+                - for product in collection.products
+                    li= link_to collection
+                        = image_tag product.icon_image, class: "product"
             .caption 
                 = link_to collection.title, collection
                 - unless collection.products.empty?

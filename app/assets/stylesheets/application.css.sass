@@ -95,7 +95,7 @@ body
     padding: 10px
     z-index: 2
 
-[data-icon-manager]
+[data-icon-manager], [data-art-manager]
     ul
         display: table
         
@@ -217,17 +217,28 @@ main
         text-align: center
 
     article
-        width: 200px
-        height: 400px
+        width: 300px
+        height: 300px
         float: left
         margin: 5px
         position: relative
         z-index: 2
 
-        img
-            width: 100%
-            padding: 10px
+        img.art
+            height: 200px
+
+        ul.products
+            display: table
+            
+            li
+                width: auto
+                height: 50px
+
+                img
+                    height: 100%
+                    width: auto
 
         .caption
+            padding: 10px 0
             a
                 text-decoration: none

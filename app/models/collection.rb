@@ -5,6 +5,8 @@ class Collection < ActiveRecord::Base
     has_many :photos, through: :products
     has_many :orders, through: :products
 
+    has_one :art
+
     def icon
         display_product.icon
     end
@@ -42,4 +44,15 @@ class Collection < ActiveRecord::Base
         icons :thumb
     end
 
+    def art_image(version=nil)
+        if art
+            art.image.file.url(version)
+        else
+            ActionController::Base.helpers.asset_path("product-fallback.jpg")
+        end
+    end
+
+    def thumb
+        art_image :thumb
+    end
 end
