@@ -15,6 +15,7 @@ gem 'slim-rails'
 gem 'slim-mustache'
 gem 'puma'
 gem 'carrierwave'
+gem 'fog'
 gem 'mini_magick'
 gem 'simple_form'
 
