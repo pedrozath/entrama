@@ -11,11 +11,11 @@ class ProductsController < ApplicationController
         @product = Product.find params[:id]
         respond_to do |f|
             f.json do  
-                render json: @product.as_json(methods: [:icon_image, :formatted_price], include: {
+                render json: @product.as_json(methods: [:icon_image, :formatted_price, :available_sizes], include: {
                     collection: {
                         include: { 
                             different_products: {
-                                methods: :thumb
+                                methods: [:thumb]
                             }
                         }
                     }

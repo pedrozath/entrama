@@ -12,6 +12,10 @@ class ProductInterface
             @select $(e.currentTarget).attr "data-icon-id"
             @convert_to_template() unless @converted_to_template
 
+        $("[data-select-size]").on "change", (e) =>
+            @select $(e.currentTarget).val()
+
+
     convert_to_template: =>
         @main_element.find("[data-template-attr]").each (index, element) =>
             element = $(element)
@@ -27,11 +31,11 @@ class ProductInterface
         @refresh()
         @converted_to_template = true
 
-
     refresh: =>
         $.get "/products/#{@selected_product}.json", (data) =>
             @main_element.html Mustache.render(@template, data)
             @bind_events()
+            $("[data-select-size]").val @selected_product
 
     select: (id) =>
         @selected_product = id

@@ -35,6 +35,25 @@ class Product < ActiveRecord::Base
         [collection.title,id,garb_type,fabric,size].join "-"
     end
 
+    def available_sizes
+        if icon
+            similar_products.reduce([]) do |memo, p|
+                memo << {size:p.size,id:p.id} unless memo.map{|m|m[:size]}.include? p.size
+                memo
+            end
+        else
+            [{size: size, id: id}]
+        end
+    end
+
+    def similar_products
+        if icon
+            Icon.where(image_id: icon.image.id).map{|i|i.product}.compact
+        else
+            []
+        end
+    end
+
     private
 
     def destroy_associated

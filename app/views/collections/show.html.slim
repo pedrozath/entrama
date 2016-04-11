@@ -6,7 +6,7 @@ article.collection-expanded data-product-interface="true" data-selected-product=
                 = image_tag @product.icon_image, "data-template-attr" => "'src':'{{icon_image}}'", class:"display-icon"
             .row: .span12
                 p Produtos desta coleção
-                                
+
                 ul.products data-template-content="
                     {{#collection.different_products}}
                         <li data-icon-id='{{id}}'>
@@ -34,6 +34,13 @@ article.collection-expanded data-product-interface="true" data-selected-product=
 
                     tr
                         td Escolha o tamanho:
-                        td = select :product, :size, @collection.sizes
+                        td 
+                            select data-select-size="true" data-template-content="
+                                {{#available_sizes}}
+                                    <option value='{{id}}'>{{size}}</option>
+                                {{/available_sizes}}"
+
+                                - @product.available_sizes.each do |a|
+                                    option value='#{a[:id]}' = a[:size]
             
             = link_to "Comprar", "/orders/buy/#{@product.id}", "data-template-attr" => "'href': '/orders/buy/{{id}}'", class: "btn"
