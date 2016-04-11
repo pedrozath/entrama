@@ -9,6 +9,5 @@
                     li= link_to collection
                         = image_tag product.icon_image, class: "product"
             .caption 
-                = link_to collection.title, collection
+                = link_to "Coleção #{collection.title}", collection
                 - unless collection.products.empty?
-                    .price = number_to_currency collection.products.first.price
