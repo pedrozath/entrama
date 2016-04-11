@@ -6,6 +6,7 @@ head
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
     meta charset="UTF-8"
+    / meta name="viewport" content="width=device-width, user-scalable=no"
 
 body 
     - if flash[:notice]
@@ -29,6 +30,7 @@ body
             = image_tag "logo-entrama.png", class: "logo"
         nav: ul
             li = link_to "sobre", "/sobre"
+            li = link_to "produtos", "/"
 
     main = yield
     footer

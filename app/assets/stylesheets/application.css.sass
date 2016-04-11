@@ -3,6 +3,7 @@
 @import fonts
 
 $black: #000
+$white: #fff
 
 table
     width: 100%
@@ -128,11 +129,35 @@ body
 [data-image-picker]
     cursor: pointer
 
+p
+    max-width: 400px
+    font-weight: 100
+
 header
     left: 0
     top: 0
     padding: 10px
     position: fixed
+
+    nav
+        border-top: dotted 1px #ccc
+
+        ul
+            padding: 5px 0px
+            li
+                padding: 2px
+                a
+                    text-decoration: none
+                    font-weight: lighter
+                    font-family: $title-font
+                    font-size: 14px
+
+                    &::before
+                        content: "_"
+
+                    &:hover
+                        background-color: $black
+                        color: $white
 
 footer
     padding: 20px
@@ -220,7 +245,7 @@ main
         width: 200px
         height: 300px
         float: left
-        margin: 5px
+        margin: 0 50px 50px 0
         position: relative
         z-index: 2
 
