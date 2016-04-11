@@ -19,7 +19,6 @@ class Collection < ActiveRecord::Base
 
     def sizes
         sizes = products.collect(&:size).compact.uniq
-        sizes.join(", ")
     end
 
     def colors

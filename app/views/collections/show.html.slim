@@ -33,7 +33,7 @@ article.collection-expanded data-product-interface="true" data-selected-product=
                         td data-template-content= "{{garb_type}}" = @product.garb_type
 
                     tr
-                        td Escolha o tamanho.
+                        td Escolha o tamanho:
                         td = select :product, :size, @collection.sizes
             
             = link_to "Comprar", "/orders/buy/#{@product.id}", "data-template-attr" => "'href': '/orders/buy/{{id}}'", class: "btn"
