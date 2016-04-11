@@ -41,7 +41,26 @@ class OrdersController < ApplicationController
 
     def add_product
         Order.find(session[:basket]).products << Product.find(params[:product_id])
-        redirect_to "/basket"
+        respond_to do |f|
+            f.html { redirect_to "/basket" }
+            f.json { render nothing: true }
+        end
+    end
+
+    def remove_product
+        Order.find(session[:basket]).order_products.where(product_id: params[:product_id]).first.destroy()
+        respond_to do |f|
+            f.html { redirect_to "/basket" }
+            f.json { render nothing: true }
+        end
+    end
+
+    def remove_all_products
+        Order.find(session[:basket]).products.delete Product.find(params[:product_id])
+        respond_to do |f|
+            f.html { redirect_to "/basket" }
+            f.json { render nothing: true }
+        end
     end
 
     def basket

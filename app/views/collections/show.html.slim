@@ -35,11 +35,5 @@ article.collection-expanded data-product-interface="true" data-selected-product=
                     tr
                         td tamanhos disp.
                         td = @collection.sizes
-
-                    tr
-                        td cores disp.
-                        td 
-                            - for color in @collection.colors
-                                = color_sample color
             
             = link_to "Comprar", "/orders/buy/#{@product.id}", "data-template-attr" => "'href': '/orders/buy/{{id}}'", class: "btn"

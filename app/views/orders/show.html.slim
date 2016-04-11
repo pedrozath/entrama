@@ -1,7 +1,7 @@
 / = debug @order.products
 
 h2 Cesta de compras
-table
+table data-order-id="#{@order.id}" data-basket-interface=true
     thead
         tr
             td
@@ -12,19 +12,24 @@ table
             td qtd
             td preço unit.
             td sub-total
+            td remover
 
     tbody
         - @order.product_list.each do |id, grouped_product|
-            tr
+            tr data-product-id="#{id}"
                 td = image_tag grouped_product.first.thumb, height: 60
                 td = grouped_product.first.collection.title
                 td = grouped_product.first.size
                 td = grouped_product.first.garb_type
                 td = grouped_product.first.fabric
-                td = grouped_product.size
-                td = number_to_currency grouped_product.first.price
-                td = number_to_currency grouped_product.first.price * grouped_product.size
+                td 
+                    => grouped_product.size
+                    => link_to fa_icon("plus-circle"), "/basket/add_product/#{id}", "data-increase-quantity" => true
+                    => link_to fa_icon("minus-circle"), "/basket/remove_product/#{id}", "data-decrease-quantity" => true
 
+                td = number_to_currency grouped_product.first.price 
+                td = number_to_currency grouped_product.first.price * grouped_product.size
+                td = link_to fa_icon("trash"), "/basket/remove_all_products/#{id}", "data-remove-product" => true
 
     tfooter
         tr
@@ -36,5 +41,6 @@ table
             td
             td Total
             td = number_to_currency @order.price
+            td
 
 = link_to "Finalizar pedido", "/check_out", class: "btn pull-right"
