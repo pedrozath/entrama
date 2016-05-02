@@ -7,7 +7,7 @@
 #= require art_manager
 #= require product_interface
 
-$ -> 
+$(document).on "ready page:load", ->
     $(".product-crud").each -> new ProductCRUD main_element: $(this)
     $("[data-icon-manager]").each -> new IconManager main_element: $(this)
     $("[data-art-manager]").each -> new ArtManager main_element: $(this)
