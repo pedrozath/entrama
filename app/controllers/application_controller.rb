@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
     end
 
     def check_session_ownership
-        session[:id] == Order.find(session_id).session_id
+        session[:id] == Order.find(session[:basket]).session_id
     end
 
 end
