@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
         full_address = [request.protocol,request.host_with_port].join
         payment.notification_url = full_address+"/payment/notification"
         payment.redirect_url = full_address+"/payment/redirect"
+
         @order.product_list.each do |id, grouped_product|
             product = grouped_product.first
             payment.items << {
@@ -14,7 +15,7 @@ class OrdersController < ApplicationController
                 description: grouped_product.first.title,
                 amount: grouped_product.first.price,
                 quantity: grouped_product.size,
-                weight: 300
+                weight: 300,
             }
         end
 
@@ -28,6 +29,27 @@ class OrdersController < ApplicationController
     end
 
     def notification
+        puts "********************************"
+        puts "********************************"
+        puts "********************************"
+        puts "********************************"
+        puts "********************************"
+        puts "********************************"
+        puts "********************************"
+        puts "********************************"
+        puts "********************************"
+        puts "******** Y E S ! ! ! ***********"
+        puts "********************************"
+        puts "********************************"
+        puts "********************************"
+        puts "********************************"
+        puts "********************************"
+        puts "********************************"
+        puts "********************************"
+        puts "********************************"
+        puts "********************************"
+        puts "********************************"
+
         transaction = PagSeguro::Transaction.find_by_code(params[:notificationCode])
 
         puts transaction

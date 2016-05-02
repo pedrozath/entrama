@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
     get "/check_out" => "orders#check_out"
     get "/payment/notification" => "orders#notification"
+    post "/payment/notification" => "orders#notification"
     get "/payment/redirect" => "pages#compra_concluida"
     post "/payment/redirect" => "pages#compra_concluida"
 
