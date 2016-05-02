@@ -3,10 +3,10 @@
         article
             - unless collection.products.empty?
                 = link_to collection
-                    = image_tag collection.art_image, class: "art"
+                    = image_tag collection.art_image(:small), class: "art"
             ul.products
                 - for product in collection.different_products
                     li= link_to collection
-                        = image_tag product.icon_image, class: "product"
+                        = image_tag product.icon_image(:thumb), class: "product"
             h2.caption 
                 = link_to "Coleção #{collection.title}", collection
