@@ -2,7 +2,7 @@ article.collection-expanded data-product-interface="true" data-selected-product=
     - unless @collection.products.empty?
         .span8
             .row: .span12
-                h2 = @collection.title
+                h1 = @collection.title
                 = image_tag @product.icon_image, "data-template-attr" => "'src':'{{icon_image}}'", class:"display-icon"
             .row: .span12
                 p Produtos desta coleção
