@@ -5,7 +5,7 @@
                 = link_to collection
                     = image_tag collection.art_image, class: "art"
             ul.products
-                - for product in collection.products
+                - for product in collection.different_products
                     li= link_to collection
                         = image_tag product.icon_image, class: "product"
             .caption 
