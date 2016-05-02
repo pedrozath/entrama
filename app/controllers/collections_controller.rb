@@ -1,4 +1,6 @@
 class CollectionsController < ApplicationController
+    before_filter :authorize, :only => [:update, :create, :destroy, :edit_art]
+
     def index
         @collections = Collection.where "products_count > 0"
     end

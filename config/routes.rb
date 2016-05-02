@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     get "/basket/remove_product/:product_id" => "orders#remove_product"
     get "/basket/add_product/:product_id" => "orders#add_product"
     get "/basket/remove_all_products/:product_id" => "orders#remove_all_products"
-    get "/basket" => "orders#basket"
+    get "/basket" => "orders#show_basket"
 
     get "/check_out" => "orders#check_out"
     get "/payment/notification" => "orders#notification"

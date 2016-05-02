@@ -1,4 +1,11 @@
 class OrdersController < ApplicationController
+    before_filter :check_session_ownership, :only => [
+        :add_product, 
+        :remove_product,
+        :remove_all_products,
+        :basket
+    ]
+    
     def check_out
         @order = Order.find session[:basket]
         payment = PagSeguro::PaymentRequest.new
@@ -15,7 +22,7 @@ class OrdersController < ApplicationController
                 description: grouped_product.first.title,
                 amount: grouped_product.first.price,
                 quantity: grouped_product.size,
-                weight: 300,
+                weight: (grouped_product.size*145)+50,
             }
         end
 
@@ -26,28 +33,13 @@ class OrdersController < ApplicationController
         else
             redirect_to response.url
         end
+
+        session[:basket] = nil
     end
 
     def notification
         puts "********************************"
-        puts "********************************"
-        puts "********************************"
-        puts "********************************"
-        puts "********************************"
-        puts "********************************"
-        puts "********************************"
-        puts "********************************"
-        puts "********************************"
         puts "******** Y E S ! ! ! ***********"
-        puts "********************************"
-        puts "********************************"
-        puts "********************************"
-        puts "********************************"
-        puts "********************************"
-        puts "********************************"
-        puts "********************************"
-        puts "********************************"
-        puts "********************************"
         puts "********************************"
 
         transaction = PagSeguro::Transaction.find_by_code(params[:notificationCode])
@@ -59,6 +51,8 @@ class OrdersController < ApplicationController
           # o processamento em background. Uma boa alternativa para isso é a
           # biblioteca Sidekiq.
         end
+
+        render nothing: true
     end
 
     def add_product
@@ -85,7 +79,7 @@ class OrdersController < ApplicationController
         end
     end
 
-    def basket
+    def show_basket
         @order = Order.find(session[:basket])
         render action: :show
     end

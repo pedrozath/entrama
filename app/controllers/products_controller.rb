@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+    before_filter :authorize, :only => [:update, :create, :edit_icon, :destroy, :index]
+    
     def index
         @products = Product.order(:created_at)
         respond_to do |f|

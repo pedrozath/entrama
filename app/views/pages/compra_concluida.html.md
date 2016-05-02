@@ -1,3 +1,3 @@
-# Compra concluída com sucesso!
+# Seu pagamento está sendo avaliado
 
-Agradecemos e em breve enviaremos sua compra. 
+Fique tranquilo(a), logo entraremos em contato.
