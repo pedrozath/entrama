@@ -3,7 +3,7 @@ h1 Produto #{@product.id} da Coleção #{@product.collection.title}
 div data-icon-manager="true" data-product-id=@product.id
     - has_icon = @product.icon
     h3 Ícone atual
-    .actual = image_tag @product.icon_image :small, width: 200
+    .actual = image_tag @product.icon_image(:small), width: 200
 
     ul.icons 
         - for image in Image.all
