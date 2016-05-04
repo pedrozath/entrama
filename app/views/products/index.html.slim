@@ -2,6 +2,7 @@ table.product-crud
     script.template type="x-tmpl-mustache"
         thead
             tr
+                th #
                 th arte
                 th ícone
                 th coleção
@@ -14,6 +15,7 @@ table.product-crud
         tbody
             ~#produtos
                 tr
+                    td = {{id}} 
                     td
                         = link_to "collections/{{collection.id}}/edit_art"
                             img src="{{collection.art_image}}" width=40
