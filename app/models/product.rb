@@ -32,7 +32,7 @@ class Product < ActiveRecord::Base
     end
 
     def title
-        %w[id collection.title garb_type fabric size].join " "
+        ["##{id} ",collection.title,garb_type,fabric,size].join " "
     end
 
     def available_sizes
