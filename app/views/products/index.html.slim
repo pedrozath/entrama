@@ -15,14 +15,14 @@ table.product-crud
         tbody
             ~#produtos
                 tr
-                    td = {{id}} 
+                    td ~id
                     td
                         = link_to "collections/{{collection.id}}/edit_art"
-                            img src="{{collection.art_image}}" width=40
+                            img src="{{collection.thumb}}" width="40"
 
                     td data-image-chooser="true"
                         = link_to "products/{{id}}/edit_icon"
-                            img src="{{icon_image}}" width=40
+                            img src="{{thumb}}" width="40"
                     td data-crud="update"  data-path="products/{{id}}" data-field="collection" {{collection.title}}
                     td data-crud="update"  data-path="products/{{id}}" data-field="price" {{price}}
                     td data-crud="update"  data-path="products/{{id}}" data-field="size" {{size}}

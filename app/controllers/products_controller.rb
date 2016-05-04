@@ -5,9 +5,9 @@ class ProductsController < ApplicationController
         @products = Product.order(:created_at)
         respond_to do |f|
             f.json do 
-                render json: @products.all.as_json(methods: [:icon_image], include: {
+                render json: @products.all.as_json(methods: [:icon_image, :thumb], include: {
                     collection: {
-                        methods: [:art_image]
+                        methods: [:art_image, :thumb]
                     }
                 })
 
