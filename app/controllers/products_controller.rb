@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
     before_filter :authorize, :only => [:update, :create, :edit_icon, :destroy, :index]
     
     def index
-        @products = Product.order(:created_at)
+        @products = Product.order(:collection).order(:icon_image)
         respond_to do |f|
             f.json do 
                 render json: @products.all.as_json(methods: [:icon_image, :thumb], include: {
