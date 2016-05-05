@@ -1,1 +1,1 @@
-livereloadx --include "*.{rb,slim,sass,coffee,yml,pde}"
+livereloadx --include "*.{rb,slim,sass,coffee,yml,pde,erb}"

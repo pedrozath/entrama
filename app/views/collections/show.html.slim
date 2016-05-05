@@ -1,3 +1,16 @@
+javascript:
+    ga('ec:addImpression', {
+        id: "#{@product.id}",
+        name: "#{@product.title}",
+        category: "#{@collection}",
+        price: #{@product.price}
+    })
+
+    ga('ec:setAction', 'list', {
+        id: session_id,
+        step: 1
+    })
+
 article.collection-expanded data-product-interface="true" data-selected-product=@product.id : .row
     - unless @collection.products.empty?
         .span8

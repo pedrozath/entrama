@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
     # protect_from_forgery with: :exception
     require 'securerandom'
     
-    helper_method :admin?, :basket
+    helper_method :admin?, :basket, :session_id
 
     def authorize
         redirect_to "/" unless admin?

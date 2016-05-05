@@ -1,4 +1,8 @@
-/ = debug @order.products
+javascript:
+    ga('ec:setAction', 'add', {
+        'step': 2,
+        id: session_id
+    })
 
 h2 Cesta de compras
 table data-order-id="#{@order.id}" data-basket-interface=true
@@ -43,4 +47,4 @@ table data-order-id="#{@order.id}" data-basket-interface=true
             td = number_to_currency @order.price
             td
 
-= link_to "Finalizar pedido", "/check_out", class: "btn pull-right"
+= link_to "Finalizar pedido", "/check_out", class: "btn pull-right", "data-analytics-purchase" => true

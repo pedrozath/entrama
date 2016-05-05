@@ -1,3 +1,4 @@
+#= require google_analytics
 #= require jquery
 #= require jquery_ujs
 #= require mustache.min
@@ -7,9 +8,15 @@
 #= require art_manager
 #= require product_interface
 
-$(document).on "ready page:load", ->
+window.puts = (things) -> console.log things
+
+$(document).on "page:change", -> 
     $(".product-crud").each -> new ProductCRUD main_element: $(this)
     $("[data-icon-manager]").each -> new IconManager main_element: $(this)
     $("[data-art-manager]").each -> new ArtManager main_element: $(this)
     $("[data-product-interface]").each -> new ProductInterface main_element: $(this)
-    $("[data-basket-interface]").each -> new BasketInterface main_element: $(this)
+    google_analytics = google_analytics ? new GoogleAnalytics
+    google_analytics.bind_events()
+    ga 'send', 'pageview'
+
+# $(document).on "page:change", -> ga 'send', 'pageview'

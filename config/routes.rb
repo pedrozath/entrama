@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+    # match "(errors)/:status", to: redirect("/"), via: :all
     get "/admin" => "sessions#new"
     post "/admin" => "sessions#create"
     delete "/admin" => "sessions#destroy"
