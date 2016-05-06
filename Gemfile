@@ -18,6 +18,7 @@ gem 'carrierwave'
 gem 'fog'
 gem 'mini_magick'
 gem 'simple_form'
+gem "friendly_id", '~> 5.1.0'
 
 gem 'markdown-rails'
 gem "font-awesome-rails"
@@ -25,12 +26,8 @@ gem "pagseguro-oficial", "~> 2.4.0"
 
 gem 'rails_12factor'
 
-group :development, :test do
-  gem 'byebug'
-end
-
 group :development do
-  gem 'web-console', '~> 2.0'
-  gem 'spring'
+    gem 'web-console', '~> 2.0'
+    gem 'spring'
+    gem 'dotenv-rails'
 end
-

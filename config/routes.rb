@@ -23,10 +23,11 @@ Rails.application.routes.draw do
 
     resources :products
     resources :images
-    resources :collections
     resources :collections, path: "/" do
         resources :products
     end
+    
+    resources :collections
     
     resources :orders
 end

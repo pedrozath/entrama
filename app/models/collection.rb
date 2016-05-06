@@ -1,9 +1,20 @@
 class Collection < ActiveRecord::Base
+    extend FriendlyId
     belongs_to :element
     has_many :products
     has_many :icons, through: :products
     has_many :photos, through: :products
     has_many :orders, through: :products
+    friendly_id :slug_candidates, use: [:slugged, :finders]
+
+  # Try building a slug based on the following fields in
+  # increasing order of specificity.
+    def slug_candidates
+        [
+            :title,
+            [:title, :id],
+        ]
+    end
 
     has_one :art
 
