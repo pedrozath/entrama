@@ -10,7 +10,7 @@ class ProductInterface
     bind_events: =>
         $(".products li").click (e) =>
             @select $(e.currentTarget).attr "data-icon-id"
-            @convert_to_template() unless @converted_to_template
+            
 
         $("[data-select-size]").on "change", (e) =>
             @select $(e.currentTarget).val()
@@ -27,11 +27,11 @@ class ProductInterface
             element.html element.attr("data-template-content")
 
         @template = @main_element.html()
-        @refresh()
         @converted_to_template = true
 
     refresh: =>
         $.get "/products/#{@selected_product}.json", (data) =>
+            @convert_to_template() unless @converted_to_template
             @main_element.html Mustache.render(@template, data)
             $("[data-select-size]").filter("[value=\'#{@selected_product}\']").attr "checked", true
             @bind_events()
