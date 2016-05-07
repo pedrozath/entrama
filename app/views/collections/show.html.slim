@@ -12,6 +12,38 @@ javascript:
     })
 
 article.collection-expanded data-product-interface="true" data-selected-product=@product.id : .row
+    table.detalhes-do-produto
+        tbody
+            tr
+                th preço
+                td data-template-content="{{formatted_price}}" = @product.formatted_price
+
+            tr
+                th tecido
+                td data-template-content="{{fabric}}" = @product.fabric
+
+            tr
+                th tipo
+                td data-template-content= "{{garb_type}}" = @product.garb_type
+
+            tr
+                th tamanho
+                td style="padding:0" data-template-content="
+                    {{#available_sizes}}
+                        <label>
+                            <input type='radio' value='{{id}}' data-select-size='true' name='size' />
+                            {{size}}
+                        </label>
+                    {{/available_sizes}}"
+
+                    - @product.available_sizes.each do |a|
+                        label
+                            input type="radio" value='#{a[:id]}' data-select-size="true" name="size" checked=(@product.size == a[:size])
+                            = a[:size]
+            tr
+                th
+                td
+                    = link_to "Comprar", "/orders/buy/#{@product.id}", "data-template-attr" => "'href': '/orders/buy/{{id}}'", class: "btn"
     - unless @collection.products.empty?
         .span8
             .row: .span12
@@ -29,31 +61,4 @@ article.collection-expanded data-product-interface="true" data-selected-product=
 
                     - for product in @collection.different_products
                         li data-template-attr="'data-icon-id':'{{id}}'" data-icon-id="#{product.id}"= image_tag product.thumb
-
-        .span4
-            table.detalhes-do-produto
-                tbody
-                    tr
-                        td preço
-                        td data-template-content="{{formatted_price}}" = @product.formatted_price
-
-                    tr
-                        td tecido
-                        td data-template-content="{{fabric}}" = @product.fabric
-
-                    tr
-                        td tipo
-                        td data-template-content= "{{garb_type}}" = @product.garb_type
-
-                    tr
-                        td Escolha o tamanho:
-                        td 
-                            select data-select-size="true" data-template-content="
-                                {{#available_sizes}}
-                                    <option value='{{id}}'>{{size}}</option>
-                                {{/available_sizes}}"
-
-                                - @product.available_sizes.each do |a|
-                                    option value='#{a[:id]}' = a[:size]
             
-            = link_to "Comprar", "/orders/buy/#{@product.id}", "data-template-attr" => "'href': '/orders/buy/{{id}}'", class: "btn"

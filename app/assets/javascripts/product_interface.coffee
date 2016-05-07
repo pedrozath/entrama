@@ -15,7 +15,6 @@ class ProductInterface
         $("[data-select-size]").on "change", (e) =>
             @select $(e.currentTarget).val()
 
-
     convert_to_template: =>
         @main_element.find("[data-template-attr]").each (index, element) =>
             element = $(element)
@@ -34,8 +33,8 @@ class ProductInterface
     refresh: =>
         $.get "/products/#{@selected_product}.json", (data) =>
             @main_element.html Mustache.render(@template, data)
+            $("[data-select-size]").filter("[value=\'#{@selected_product}\']").attr "checked", true
             @bind_events()
-            $("[data-select-size]").val @selected_product
 
     select: (id) =>
         @selected_product = id

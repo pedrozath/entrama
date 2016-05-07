@@ -35,12 +35,21 @@ class Product < ActiveRecord::Base
         ["##{id} ",collection.title,garb_type,fabric,size].join " "
     end
 
+    def size_index size
+        %w[p m g gg].each_with_index.map{|s,i| {s => i}}.reduce({},:merge)[size]
+    end
+
     def available_sizes
         if icon
-            similar_products.reduce([]) do |memo, p|
+            available_sizes = similar_products.reduce([]) do |memo, p|
                 memo << {size:p.size,id:p.id} unless memo.map{|m|m[:size]}.include? p.size
                 memo
             end
+
+            available_sizes.sort { |a,b|
+                size_index(a[:size]) <=> size_index(b[:size])
+            }
+
         else
             [{size: size, id: id}]
         end
