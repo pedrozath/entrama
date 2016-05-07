@@ -2,7 +2,6 @@ development:
   adapter: postgresql
   host: localhost
   database: entrama
-  port: 6666
 
 production:
   adapter: postgresql

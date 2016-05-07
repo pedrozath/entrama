@@ -1,7 +1,7 @@
 doctype html
 html
     head
-        title ENTRAMA
+        title ENTRAMA | ARTE EM CAMISETAS
         = stylesheet_link_tag "application", media: "all"
         javascript:
             window.session_id = "#{session_id}"
@@ -9,9 +9,11 @@ html
         = csrf_meta_tags
 
         meta charset="UTF-8"
-        / meta name="viewport" content="width=device-width, user-scalable=no"
-        meta name="description" content="Arte em camisetas"
+        meta name="viewport" content="width=device-width, user-scalable=no"
+        meta name="description" content="Produzimos camisetas com estampas geradas por algoritmos de computador."
         link rel="shortcut icon" type="image/x-icon" href=asset_url("favicon.png")
+        - if ENV["RAILS_ENV"] == "development"
+            script src="http://10.0.1.2:35729/livereload.js?snipver=1"
     body 
 
         - if flash[:notice]
@@ -32,8 +34,8 @@ html
                     |  itens na cesta
 
         header
-            = link_to "/"
-                = image_tag "logo-entrama.png", class: "logo"
+            = link_to "/", class: "logo"
+                = image_tag "logo-entrama.png"
             nav: ul
                 li = link_to "sobre", "/sobre"
                 li = link_to "produtos", "/"
@@ -55,4 +57,4 @@ html
                         li 
                             = link_to link, target: "blank"
                                 = fa_icon media
-            | Entrama 2016 © Todos direitos reservados 
+            p Entrama 2016 © Todos direitos reservados 

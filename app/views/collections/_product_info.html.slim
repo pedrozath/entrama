@@ -1,0 +1,32 @@
+table.detalhes-do-produto
+    tbody
+        tr
+            th preço
+            td data-template-content="{{formatted_price}}" = @product.formatted_price
+
+        tr
+            th tecido
+            td data-template-content="{{fabric}}" = @product.fabric
+
+        tr
+            th tipo
+            td data-template-content= "{{garb_type}}" = @product.garb_type
+
+        tr
+            th tamanho
+            td style="padding:0" data-template-content="
+                {{#available_sizes}}
+                    <label>
+                        <input type='radio' value='{{id}}' data-select-size='true' name='size' />
+                        {{size}}
+                    </label>
+                {{/available_sizes}}"
+
+                - @product.available_sizes.each do |a|
+                    label
+                        input type="radio" value='#{a[:id]}' data-select-size="true" name="size" checked=(@product.size == a[:size])
+                        = a[:size]
+        tr
+            th
+            td
+                = link_to "Comprar", "/orders/buy/#{@product.id}", "data-template-attr" => "'href': '/orders/buy/{{id}}'", class: "btn"

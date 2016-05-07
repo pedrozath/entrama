@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
     def basket
         session[:basket] ||= Order.create(status: "aberto", session_id: session_id).id
-        Order.find session[:basket]
+        Order.find_by_id(session[:basket]) || OpenStruct.new(products: [])
     end
 
     def session_id

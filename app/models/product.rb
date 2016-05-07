@@ -23,6 +23,10 @@ class Product < ActiveRecord::Base
         end
     end
 
+    def icon_image_big
+        icon_image :big
+    end
+
     def thumb
         icon_image :thumb
     end

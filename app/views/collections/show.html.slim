@@ -12,53 +12,20 @@ javascript:
     })
 
 article.collection-expanded data-product-interface="true" data-selected-product=@product.id : .row
-    table.detalhes-do-produto
-        tbody
-            tr
-                th preço
-                td data-template-content="{{formatted_price}}" = @product.formatted_price
-
-            tr
-                th tecido
-                td data-template-content="{{fabric}}" = @product.fabric
-
-            tr
-                th tipo
-                td data-template-content= "{{garb_type}}" = @product.garb_type
-
-            tr
-                th tamanho
-                td style="padding:0" data-template-content="
-                    {{#available_sizes}}
-                        <label>
-                            <input type='radio' value='{{id}}' data-select-size='true' name='size' />
-                            {{size}}
-                        </label>
-                    {{/available_sizes}}"
-
-                    - @product.available_sizes.each do |a|
-                        label
-                            input type="radio" value='#{a[:id]}' data-select-size="true" name="size" checked=(@product.size == a[:size])
-                            = a[:size]
-            tr
-                th
-                td
-                    = link_to "Comprar", "/orders/buy/#{@product.id}", "data-template-attr" => "'href': '/orders/buy/{{id}}'", class: "btn"
     - unless @collection.products.empty?
-        .span8
-            .row: .span12
-                h1 = @collection.title
-                = image_tag @product.icon_image(:big), "data-template-attr" => "'src':'{{icon_image}}'", class:"display-icon"
-            .row: .span12
-                p Produtos desta coleção
+        .row: .span12
+            h1 = @collection.title
+            = image_tag @product.icon_image_big, "data-template-attr" => "'src':'{{icon_image_big}}'", class:"display-icon"
+        = render partial: "product_info"
+        .row: .products.span12
+            p Produtos desta coleção
 
-                ul.products data-template-content="
-                    {{#collection.different_products}}
-                        <li data-icon-id='{{id}}'>
-                            <img src='{{thumb}}'/>
-                        </li>
-                    {{/collection.different_products}}"
+            ul data-template-content="
+                {{#collection.different_products}}
+                    <li data-icon-id='{{id}}'>
+                        <img src='{{thumb}}'/>
+                    </li>
+                {{/collection.different_products}}"
 
-                    - for product in @collection.different_products
-                        li data-template-attr="'data-icon-id':'{{id}}'" data-icon-id="#{product.id}"= image_tag product.thumb
-            
+                - for product in @collection.different_products
+                    li data-template-attr="'data-icon-id':'{{id}}'" data-icon-id="#{product.id}"= image_tag product.thumb

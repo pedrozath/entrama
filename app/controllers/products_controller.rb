@@ -7,7 +7,7 @@ class ProductsController < ApplicationController
         @products = @products_by_icon + @stray_products
         respond_to do |f|
             f.json do 
-                render json: @products.as_json(methods: [:icon_image, :thumb], include: {
+                render json: @products.as_json(methods: [:icon_image, :icon_image_big, :thumb], include: {
                     collection: {
                         methods: [:art_image, :thumb]
                     }
@@ -25,7 +25,7 @@ class ProductsController < ApplicationController
         respond_to do |f|
             f.json do  
                 render json: @product.as_json(
-                    methods: [:icon_image, :formatted_price, :available_sizes], include: {
+                    methods: [:icon_image, :icon_image_big, :formatted_price, :available_sizes], include: {
                         collection: {
                             methods: [:art_image],
                             include: { 

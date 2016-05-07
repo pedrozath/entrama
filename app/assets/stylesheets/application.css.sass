@@ -3,7 +3,18 @@
 @import fonts
 
 $black: #000
+$light_black: transparentize($black, 0.8)
 $white: #fff
+
+=mobile
+    @media (max-width: 720px)
+        @content
+
+=hover_invert
+    &:hover
+        background-color: $black
+        color: $white
+        transition: background-color 100ms, color 100ms
 
 table
     width: 100%
@@ -27,6 +38,10 @@ table
         position: fixed
         right: 0
         width: 300px
+
+        +mobile
+            width: 100%
+            position: relative
         
         td, th
             padding: 5px
@@ -59,7 +74,6 @@ table
     width: auto !important
     margin: 0 auto
     display: block
-    padding: 20px
 
 .color-sample
     width: 20px
@@ -77,16 +91,9 @@ h1
     text-transform: uppercase
     text-align: center
 
-ul.products
-    li
-        width: 100px
-        height: 100px
-        float: left
-        padding: 0px
-        cursor: pointer
+.collection-expanded h1
+    padding-bottom: 20px
 
-        img
-            width: 100%
 
 .row
     display: table
@@ -101,9 +108,20 @@ ul.products
 $num-columns: 12
 $column-width: 100% / $num-columns
 
+%span
+    p
+        text-align: center
+
+    +mobile
+
+        &, img
+            width: 100% !important
+            height: auto 
+
 @for $i from 1 through $num-columns
     .span#{$i}
         width: $column-width * $i
+        @extend %span
 
     .offset#{$i}
         margin-left: $column-width * $i
@@ -116,6 +134,8 @@ body
     margin: 0
     font-family: $body-font
     font-size: 14pt
+    +mobile
+        padding: 0
 
 .price
     font-size: 14px
@@ -127,12 +147,25 @@ body
     top: 0
     padding: 20px
 
+    +mobile
+        position: relative
+        padding: 0
+        left: 0
+        top: 0
+
 .basket-btn
     position: absolute
     right: 0
     top: 0
     padding: 10px
     z-index: 2
+    
+    +mobile
+        display: block
+        width: 100%
+        padding: 20px 0
+        position: relative
+        text-align: center
 
 [data-icon-manager], [data-art-manager]
     ul
@@ -164,22 +197,56 @@ body
     > .row > * > *
         margin-bottom: 40px
 
+.collection-expanded
+    padding-right: 250px
+
+    +mobile
+        padding: 0
+
+    .products
+        border-top: 1px dotted $light_black
+        margin-top: 20px
+
+        ul
+            margin: 0 auto
+            display: table
+            li 
+                display: inline-block
+
 [data-image-picker]
     cursor: pointer
 
-p
+main > p
     max-width: 400px
     font-weight: 100
     font-size: 16px
 
-header
+body > header
     left: 0
     top: 0
     padding: 10px
     position: fixed
 
+    +mobile
+        position: relative
+        width: 100%
+
+        .logo
+            display: block
+            width: 100%
+
+            img
+                height: 200px
+                margin: 0 auto
+                display: block
+
+                +mobile
+                    height: 200px
+
     nav
         border-top: dotted 1px #ccc
+        +mobile
+            display: none
 
         ul
             padding: 5px 0px
@@ -190,15 +257,13 @@ header
                     font-weight: lighter
                     font-family: $title-font
                     font-size: 14px
+                    +hover_invert
 
                     &::before
                         content: "_"
 
-                    &:hover
-                        background-color: $black
-                        color: $white
-
 footer
+    margin-top: 50px
     padding: 20px
     position: fixed
     bottom: 0
@@ -207,14 +272,24 @@ footer
     background-color: #fff
     text-align: center
     text-transform: uppercase
-    font-size: 14px
+    line-height: 1.5
     letter-spacing: 2px
+    font-size: 14px
+
+    +mobile
+        position: relative
+        display: block
+        padding: 0
+
+        p
+            font-size: 8pt
 
 section
     overflow: hidden
 
 a
     color: $black
+    border-radius: 4px
 
 ul
     padding: 0
@@ -234,10 +309,16 @@ h2
     display: inline-block
     z-index: 2
     position: relative
+    background-color: $white
+    border: 1px solid $black
+    color: $black
 
 .btn
-    padding: 5px
+    padding: 14px 10px 10px 10px
     font-size: 20px
+    border-radius: 4px
+    box-shadow: -2px 2px 0 0 $white, -8px 8px 0 0 $black
+    +hover_invert
 
 .small-btn
     font-size: 12px
@@ -269,22 +350,36 @@ nav.social-media
     margin: 15px
     bottom: 0
 
+    +mobile
+        position: relative
+        right: auto
+        bottom: auto
+        margin: 0
+
+        &, ul
+            width: 100%
+
     li, a
         display: block
         float: right
 
+        +mobile
+            font-size: 20px
+            display: inline-block
+            float: none
+
     a
         padding: 5px 10px
         border-radius: 5px
-
-        &:hover
-            background-color: $black
-            color: $white
+        +hover_invert
 
 main
     padding-left: 200px
     padding-bottom: 60px
     padding-top: 100px
+
+    +mobile
+        padding: 0
 
 .collection-expanded
     > .row > * > *
@@ -294,6 +389,7 @@ main
 
 .collections 
     margin: -5px
+    width: 100%
 
     .caption
         text-align: center
@@ -306,15 +402,50 @@ main
         position: relative
         z-index: 2
 
+        +mobile
+            float: none
+            width: 100%
+            height: auto
+            margin: 0
+
+        > a
+            display: block
+
+            +mobile
+                img
+                    margin: 0 auto
+                    display: block
+
+        +mobile
+            width: 100%
+
         img.art
             height: 200px
 
+            +mobile
+                height: auto
+                width: 100%
+
         ul.products
             display: table
+
+            +mobile
+                display: block
+                width: 100%
+                text-align: center
             
             li
+                width: 100px
+                height: 100px
+                float: left
+                padding: 0px
+                cursor: pointer
                 width: 65px
                 height: auto
+
+                +mobile
+                    display: inline-block
+                    float: none
 
                 a
                     display: block
