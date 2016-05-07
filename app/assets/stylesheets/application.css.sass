@@ -238,9 +238,17 @@ nav.social-media
     margin: 15px
     bottom: 0
 
-    li
-        display: inline-block
-        padding: 5px
+    li, a
+        display: block
+        float: right
+
+    a
+        padding: 5px 10px
+        border-radius: 5px
+
+        &:hover
+            background-color: $black
+            color: $white
 
 main
     padding-left: 200px
