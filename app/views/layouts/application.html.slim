@@ -39,5 +39,20 @@ html
                 li = link_to "produtos", "/"
 
         main = yield
+        
         footer
+            nav.social-media
+                ul
+                    ruby:
+                        social_media = {
+                            facebook: "//facebook.com/arte.entrama",
+                            instagram: "//instagram.com/arte.entrama",
+                            twitter: "//twitter.com/arteentrama",
+                            envelope: "mailto:vendas@entrama.com.br"
+                        }
+
+                    - for media, link in social_media
+                        li 
+                            = link_to link
+                                = fa_icon media
             | Entrama 2016 © Todos direitos reservados 
