@@ -3,6 +3,9 @@ class ProductsController < ApplicationController
     
     def index
         respond_to do |f|
+            f.html do 
+                @products = Product.by_collection.unique
+            end
             f.json do 
                 @products = Product.by_icon
                 render json: @products.as_json(methods: [:icon_image, :icon_image_big, :thumb], include: {
@@ -10,12 +13,6 @@ class ProductsController < ApplicationController
                         methods: [:art_image, :thumb]
                     }
                 })
-            end
-            f.html do 
-                @facebook_meta_tags.merge({
-                    
-                })
-                @products = Product.by_collection.unique
             end
         end
     end
@@ -28,6 +25,12 @@ class ProductsController < ApplicationController
         @collection = @product.collection
 
         respond_to do |f|
+            f.html { 
+                @facebook_meta_tags[:image] = @product.icon_image(:medium)
+                @facebook_meta_tags[:title] = "Camiseta #{@product.collection.title}"
+                render template: "collections/show"
+            }
+            
             f.json do  
                 render json: @product.as_json(
                     methods: [:icon_image, :icon_image_big, :formatted_price, :available_sizes], include: {
@@ -42,11 +45,6 @@ class ProductsController < ApplicationController
                 })
             end
 
-            f.html { 
-                @facebook_meta_tags[:image] = @product.icon_image(:medium)
-                @facebook_meta_tags[:title] = "Camiseta #{@product.collection.title}"
-                render template: "collections/show"
-            }
         end
     end
 
