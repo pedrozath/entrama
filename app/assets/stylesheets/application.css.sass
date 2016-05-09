@@ -93,6 +93,9 @@ h1
 
     +mobile
         text-align: center
+        border-top: 1px dotted $light_black
+        border-bottom: 1px dotted $light_black
+        padding: 13px 0 10px 0
 
 .collection-expanded h1
     padding-bottom: 20px
@@ -105,6 +108,10 @@ h1
         padding: 20px
         height: 280px
         text-align: center
+
+        +mobile
+            float: none
+            width: 100%
 
         a
             display: block
@@ -215,6 +222,11 @@ body
         margin-bottom: 40px
 
 .collection-expanded
+    padding-right: 250px
+    > .row > * > *
+        margin-bottom: 20px
+    h2
+        text-align: center
 
     +mobile
         padding: 0
@@ -390,13 +402,6 @@ main
 
     +mobile
         padding: 0
-
-.collection-expanded
-    padding-right: 250px
-    > .row > * > *
-        margin-bottom: 20px
-    h2
-        text-align: center
 
 .caption
     text-align: center
