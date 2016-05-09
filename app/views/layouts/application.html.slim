@@ -11,6 +11,10 @@ html
         meta charset="UTF-8"
         meta name="viewport" content="width=device-width"
         meta name="description" content="Produzimos camisetas com estampas geradas por algoritmos de computador."
+
+        - for key, value in @facebook_meta_tags
+            meta property="og:#{key}" content="#{value}"
+
         link rel="shortcut icon" type="image/x-icon" href=asset_url("favicon.png")
         - if ENV["RAILS_ENV"] == "development"
             script src="http://10.0.1.2:35729/livereload.js?snipver=1"

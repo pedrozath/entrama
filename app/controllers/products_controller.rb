@@ -12,6 +12,9 @@ class ProductsController < ApplicationController
                 })
             end
             f.html do 
+                @facebook_meta_tags.merge({
+                    
+                })
                 @products = Product.by_collection.unique
             end
         end
@@ -39,7 +42,11 @@ class ProductsController < ApplicationController
                 })
             end
 
-            f.html { render template: "collections/show" }
+            f.html { 
+                @facebook_meta_tags[:image] = @product.icon_image(:medium)
+                @facebook_meta_tags[:title] = "Camiseta #{@product.collection.title}"
+                render template: "collections/show"
+            }
         end
     end
 

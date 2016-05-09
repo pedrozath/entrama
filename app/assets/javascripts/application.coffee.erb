@@ -1,5 +1,6 @@
 #= require utils
 #= require google_analytics
+#= require facebook_api
 #= require jquery
 #= require jquery_ujs
 #= require mustache.min
@@ -14,6 +15,7 @@ App.google_analytics =
         library_path: "<%= asset_path 'analytics.js' %>"
 
 $(document).on "page:change", -> 
+    new FacebookAPI
     $(".product-crud").each -> 
         App.product_crud = new ProductCRUD 
             main_element: $(this)
