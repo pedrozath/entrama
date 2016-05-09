@@ -24,8 +24,9 @@ Rails.application.routes.draw do
     get "/payment/redirect", to: "pages#compra_concluida"
     post "/payment/redirect", to: "pages#compra_concluida"
 
-    resources :collections, path: "/"
-    resources :products, path: "/camisetas"
+
+    resources :collections, path: "/coleções"
+    resources :products, path: "/"
     
     resources :images
     resources :orders

@@ -37,8 +37,8 @@ html
             = link_to "/", class: "logo"
                 = image_tag "logo-entrama.png"
             nav: ul
-                li = link_to "camisetas", "/camisetas"
-                li = link_to "coleções", "/"
+                li = link_to "camisetas", products_path
+                li = link_to "coleções", collections_path
                 li = link_to "sobre", "/sobre"
 
         main = yield
