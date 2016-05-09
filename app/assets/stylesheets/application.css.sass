@@ -89,11 +89,25 @@ h1, h2, h3, h4, h5
 h1
     font-size: 22px
     text-transform: uppercase
-    text-align: center
+    text-align: left
+
+    +mobile
+        text-align: center
 
 .collection-expanded h1
     padding-bottom: 20px
+    text-align: center
 
+.products
+    article
+        float: left
+        width: 250px
+        padding: 20px
+        height: 280px
+        text-align: center
+
+        a
+            display: block
 
 .row
     display: table
@@ -167,6 +181,9 @@ body
         position: relative
         text-align: center
 
+[data-icon-id]
+    cursor: pointer
+
 [data-icon-manager], [data-art-manager]
     ul
         display: table
@@ -198,7 +215,6 @@ body
         margin-bottom: 40px
 
 .collection-expanded
-    padding-right: 250px
 
     +mobile
         padding: 0
@@ -302,18 +318,14 @@ h2
     text-transform: uppercase
 
 .btn, .small-btn
-    background-color: $black
     text-transform: uppercase
     text-decoration: none
-    color: #fff
-    display: inline-block
+    display: inline-block !important
     z-index: 2
     position: relative
     background-color: $white
     border: 1px solid $black
     color: $black
-
-.btn
     padding: 14px 10px 10px 10px
     font-size: 20px
     border-radius: 4px
@@ -323,7 +335,7 @@ h2
 .small-btn
     font-size: 12px
     padding: 3px
-    border-radius: 3px
+    border-radius: 2px
 
 select
     -webkit-appearance: none
@@ -374,25 +386,25 @@ nav.social-media
         +hover_invert
 
 main
-    padding-left: 200px
-    padding-bottom: 60px
-    padding-top: 100px
+    padding: 100px 0px 60px 200px
 
     +mobile
         padding: 0
 
 .collection-expanded
+    padding-right: 250px
     > .row > * > *
         margin-bottom: 20px
     h2
         text-align: center
 
+.caption
+    text-align: center
+
 .collections 
     margin: -5px
     width: 100%
 
-    .caption
-        text-align: center
 
     article
         width: 200px
@@ -439,7 +451,6 @@ main
                 height: 100px
                 float: left
                 padding: 0px
-                cursor: pointer
                 width: 65px
                 height: auto
 

@@ -22,10 +22,10 @@ module Entrama
     config.i18n.default_locale = "pt-BR"
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
+    config.middleware.use Rack::Deflater
     config.active_record.raise_in_transactional_callbacks = true
     config.action_dispatch.default_headers = {
         "Access-Control-Allow-Origin" => '*'
     }
-
   end
 end

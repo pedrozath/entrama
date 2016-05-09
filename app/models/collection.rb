@@ -43,12 +43,7 @@ class Collection < ActiveRecord::Base
     end
 
     def different_products
-        products.inject([]) do |memo, p|
-            if !memo.map{|m|m.icon_image}.include?(p.icon_image)
-                memo << p
-            end
-            memo
-        end
+        products.unique
     end
 
     def thumbs

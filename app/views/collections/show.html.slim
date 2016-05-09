@@ -16,16 +16,16 @@ article.collection-expanded data-product-interface="true" data-selected-product=
         .row: .span12
             h1 = @collection.title
             = image_tag @product.icon_image_big, "data-template-attr" => "'src':'{{icon_image_big}}'", class:"display-icon"
-        = render partial: "product_info"
+        = render partial: "collections/product_info"
         .row: .products.span12
             p Produtos desta coleção
 
             ul data-template-content="
                 {{#collection.different_products}}
-                    <li data-icon-id='{{id}}'>
+                    <li data-icon-id='{{slug}}' class='hover-highlight'>
                         <img src='{{thumb}}'/>
                     </li>
                 {{/collection.different_products}}"
 
                 - for product in @collection.different_products
-                    li data-template-attr="'data-icon-id':'{{id}}'" data-icon-id="#{product.id}"= image_tag product.thumb
+                    li.hover-highlight data-template-attr="'data-icon-id':'{{slug}}'" data-icon-id="#{product.slug}"= image_tag product.thumb

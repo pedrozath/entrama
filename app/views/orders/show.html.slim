@@ -9,10 +9,10 @@ table data-order-id="#{@order.id}" data-basket-interface=true
     thead
         tr
             td
-            td coleção
+            / td coleção
             td tamanho
-            td tipo
-            td tecido
+            / td tipo
+            / td tecido
             td qtd
             td preço unit.
             td sub-total
@@ -22,10 +22,10 @@ table data-order-id="#{@order.id}" data-basket-interface=true
         - @order.product_list.each do |id, grouped_product|
             tr data-product-id="#{id}"
                 td = image_tag grouped_product.first.thumb, height: 60
-                td = grouped_product.first.collection.title
+                / td = grouped_product.first.collection.title
                 td = grouped_product.first.size
-                td = grouped_product.first.garb_type
-                td = grouped_product.first.fabric
+                / td = grouped_product.first.garb_type
+                / td = grouped_product.first.fabric
                 td 
                     => grouped_product.size
                     => link_to fa_icon("plus-circle"), "/basket/add_product/#{id}", "data-increase-quantity" => true
@@ -38,10 +38,10 @@ table data-order-id="#{@order.id}" data-basket-interface=true
     tfooter
         tr
             td 
+            / td 
             td 
-            td 
-            td 
-            td
+            / td 
+            / td
             td
             td Total
             td = number_to_currency @order.price

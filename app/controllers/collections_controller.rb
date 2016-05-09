@@ -7,7 +7,7 @@ class CollectionsController < ApplicationController
 
     def show
         @collection ||= Collection.find params[:id]
-        @product ||= @collection.display_product
+        @product = @collection.display_product
     end
 
     def update

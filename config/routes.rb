@@ -1,33 +1,32 @@
 Rails.application.routes.draw do
-    # match "(errors)/:status", to: redirect("/"), via: :all
-    get "/admin" => "sessions#new"
-    post "/admin" => "sessions#create"
-    delete "/admin" => "sessions#destroy"
+    get "/admin", to: "sessions#new"
+    post "/admin", to: "sessions#create"
+    delete "/admin", to: "sessions#destroy"
 
-    get "/sobre" => "pages#sobre"
+    get "/sobre", to: "pages#sobre"
 
-    get "/orders/buy/:product_id" => "orders#add_product"
-    get "/products/:id/edit_icon" => "products#edit_icon"
-    get "/collections/:id/edit_art" => "collections#edit_art"
+    get "estoque", to: "products#stock", as: "stock"
 
-    get "/basket/remove_product/:product_id" => "orders#remove_product"
-    get "/basket/add_product/:product_id" => "orders#add_product"
-    get "/basket/remove_all_products/:product_id" => "orders#remove_all_products"
-    get "/basket" => "orders#show_basket"
+    get "/orders/buy/:product_id", to: "orders#add_product"
+    get "/products/:id/edit_icon", to: "products#edit_icon"
+    get "/collections/:id/edit_art", to: "collections#edit_art"
+    
+    get "/camisetas", to: "products#index", defaults: { garb_type: "camisetas" }
 
-    get "/check_out" => "orders#check_out"
-    get "/payment/notification" => "orders#notification"
-    post "/payment/notification" => "orders#notification"
-    get "/payment/redirect" => "pages#compra_concluida"
-    post "/payment/redirect" => "pages#compra_concluida"
+    get "/basket/remove_product/:product_id", to: "orders#remove_product"
+    get "/basket/add_product/:product_id", to: "orders#add_product"
+    get "/basket/remove_all_products/:product_id", to: "orders#remove_all_products"
+    get "/basket", to: "orders#show_basket", as: "basket"
 
-    resources :products
+    get "/check_out", to: "orders#check_out"
+    get "/payment/notification", to: "orders#notification"
+    post "/payment/notification", to: "orders#notification"
+    get "/payment/redirect", to: "pages#compra_concluida"
+    post "/payment/redirect", to: "pages#compra_concluida"
+
+    resources :collections, path: "/"
+    resources :products, path: "/camisetas"
+    
     resources :images
-    resources :collections, path: "/" do
-        resources :products
-    end
-    
-    resources :collections
-    
     resources :orders
 end

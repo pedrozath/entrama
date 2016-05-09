@@ -1,45 +1,12 @@
-table.product-crud
-    script.template type="x-tmpl-mustache"
-        thead
-            tr
-                th #
-                th arte
-                th ícone
-                th coleção
-                th preço
-                th tamanho
-                th tipo
-                th tecido
-                th quantidade
-                th apagar
-        tbody
-            ~#produtos
-                tr
-                    td ~id
-                    td
-                        = link_to "collections/{{collection.id}}/edit_art"
-                            img src="{{collection.thumb}}" width="40"
+h1 Nossas Camisetas
+section.products
+    - for product in @products
+        article.hover-highlight
+            = link_to product
+                = image_tag product.icon_image :small
 
-                    td data-image-chooser="true"
-                        = link_to "products/{{id}}/edit_icon"
-                            img src="{{thumb}}" width="40"
-                    td data-crud="update"  data-path="products/{{id}}" data-field="collection" {{collection.title}}
-                    td data-crud="update"  data-path="products/{{id}}" data-field="price" {{price}}
-                    td data-crud="update"  data-path="products/{{id}}" data-field="size" {{size}}
-                    td data-crud="update"  data-path="products/{{id}}" data-field="garb_type" {{garb_type}}
-                    td data-crud="update"  data-path="products/{{id}}" data-field="fabric" {{fabric}}
-                    td data-crud="update"  data-path="products/{{id}}" data-field="quantity" {{quantity}}
-                    td data-crud="destroy" data-path="products/{{id}}" = link_to (fa_icon :trash), "#"
-                    
+            .caption
+                h2 = "#{product.collection.title} #{product.color}"
+                h3 = "#{number_to_currency product.price}"
 
-            tr
-                td
-                td
-                td
-                td
-                td
-                td
-                td
-                td: button data-crud="new" Novo produto
-
-        tfooter
+            = link_to "Ver mais", product, class: "small-btn"

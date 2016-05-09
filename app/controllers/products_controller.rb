@@ -1,27 +1,29 @@
 class ProductsController < ApplicationController
-    before_filter :authorize, :only => [:update, :create, :edit_icon, :destroy, :index]
+    before_filter :authorize, :only => [:update, :create, :edit_icon, :destroy]
     
     def index
-        @products_by_icon = Icon.order(:image_id).collect(&:product).compact
-        @stray_products = Product.all - @products_by_icon
-        @products = @products_by_icon + @stray_products
         respond_to do |f|
             f.json do 
+                @products = Product.by_icon
                 render json: @products.as_json(methods: [:icon_image, :icon_image_big, :thumb], include: {
                     collection: {
                         methods: [:art_image, :thumb]
                     }
                 })
-
-                # render json: Collection.first.as_json(methods: :art_image)
             end
-
-            f.html { }
+            f.html do 
+                @products = Product.by_collection.unique
+            end
         end
+    end
+
+    def stock
     end
 
     def show
         @product = Product.find params[:id]
+        @collection = @product.collection
+
         respond_to do |f|
             f.json do  
                 render json: @product.as_json(
@@ -37,8 +39,8 @@ class ProductsController < ApplicationController
                 })
             end
 
-            f.html { }
-        end     
+            f.html { render template: "collections/show" }
+        end
     end
 
     def update
@@ -54,6 +56,8 @@ class ProductsController < ApplicationController
             @product.icon.destroy if @product.icon
             @product.create_icon image_id: params[:value]
             @product.save
+        elsif params[:field] == "color"
+            @product.similar_products.each {|p| p.update_attribute params[:field], params[:value].strip}
         else
             @product.update_attribute params[:field], params[:value].strip
         end

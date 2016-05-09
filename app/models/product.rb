@@ -1,17 +1,49 @@
 class Product < ActiveRecord::Base
+    extend FriendlyId
     belongs_to :collection, counter_cache: true
     has_one :icon
     has_many :photos
     has_many :order_products
     has_many :orders, through: :order_products
+    friendly_id :slug_candidates, use: [:slugged, :finders]
+
     attr_accessor :use_existing_image, :image
     attr_accessor :icon_image
+
+    def slug_candidates
+        [
+            [:garb_type, :collection_title, :color, :fabric, :size]
+        ]
+    end
+
+    def collection_title
+        self.collection.title
+    end
 
     # validates :size, :garb_type, :fabric, :color, 
     # :quantity, :price, presence: true
 
     # # validates :icon, presence: true, unless: -> (p){p.use_existing_image.present?}
     # validates :use_existing_image, presence: true, if: "image.nil?"
+
+    scope :by_icon, -> do
+        @products_by_icon = Icon.order(:image_id).collect(&:product).compact
+        @stray_products = Product.all - @products_by_icon
+        @products = @products_by_icon + @stray_products
+    end
+
+    scope :by_collection, -> do
+        all.joins(:collection).order("title")
+    end
+
+    scope :unique, -> do
+        all.inject([]) do |memo, p|
+            if !memo.map{|m|m.icon_image}.include?(p.icon_image)
+                memo << p
+            end
+            memo
+        end
+    end
 
     before_destroy :destroy_associated
 

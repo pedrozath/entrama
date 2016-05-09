@@ -7,11 +7,12 @@ class ProductInterface
         @converted_to_template = false
         @bind_events()
 
+        $(window).on "popstate", (e) => @change e.originalEvent.state
+
     bind_events: =>
         $(".products li").click (e) =>
             @select $(e.currentTarget).attr "data-icon-id"
             
-
         $("[data-select-size]").on "change", (e) =>
             @select $(e.currentTarget).val()
 
@@ -30,13 +31,18 @@ class ProductInterface
         @converted_to_template = true
 
     refresh: =>
-        $.get "/products/#{@selected_product}.json", (data) =>
+        $.get "#{@path}/#{@selected_product}.json", (data) =>
             @convert_to_template() unless @converted_to_template
             @main_element.html Mustache.render(@template, data)
             $("[data-select-size]").filter("[value=\'#{@selected_product}\']").attr "checked", true
             @bind_events()
+            @on_refresh() if @on_refresh?
 
     select: (id) =>
+        window.history.pushState id, "", "#{@path}/#{id}"
+        @change id 
+
+    change: (id) => 
         @selected_product = id
         @refresh()
 

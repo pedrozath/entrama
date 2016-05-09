@@ -37,7 +37,7 @@ class ProductCRUD
             @read()
 
     read: => 
-        $.get "/products.json", {}, (data) =>
+        $.get "#{@path}.json", {}, (data) =>
             @crud_data = { produtos: data }
             @main_element.html Mustache.render @template, @crud_data
             @bind_events()

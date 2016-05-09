@@ -1,12 +1,12 @@
 .row: section.collections 
     - for collection in @collections
-        article
+        article.hover-highlight
             - unless collection.products.empty?
-                = link_to collection
-                    = image_tag collection.art_image(:small), class: "art"
+                = link_to collection.display_product
+                    = image_tag collection.art_image(:medium), class: "art"
             ul.products
                 - for product in collection.different_products
-                    li= link_to collection
+                    li.hover-highlight= link_to product
                         = image_tag product.icon_image(:thumb), class: "product"
             h2.caption 
                 = link_to "Coleção #{collection.title}", collection

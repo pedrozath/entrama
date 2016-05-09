@@ -22,13 +22,13 @@ html
         - if admin?
             .admin-bar
                 | Você está no modo admin |   
-                = link_to "Estoque", products_path
+                = link_to "Estoque", stock_path
                 |  |  
                 = link_to "Sair", "/admin", method: :delete
         
         .gui
             - if basket.products.size > 0
-                = link_to "/basket", class: "basket-btn push-right"
+                = link_to basket_path, class: "basket-btn push-right"
                     = fa_icon "shopping-basket"
                     = basket.products.size
                     |  itens na cesta
@@ -37,8 +37,9 @@ html
             = link_to "/", class: "logo"
                 = image_tag "logo-entrama.png"
             nav: ul
+                li = link_to "camisetas", "/camisetas"
+                li = link_to "coleções", "/"
                 li = link_to "sobre", "/sobre"
-                li = link_to "produtos", "/"
 
         main = yield
         
