@@ -26,7 +26,8 @@ Rails.application.routes.draw do
 
 
     resources :collections, path: "/coleções"
-    resources :products, path: "/"
+    resources :products, path: "/camisetas"
+    root to: "products#index"
     
     resources :images
     resources :orders

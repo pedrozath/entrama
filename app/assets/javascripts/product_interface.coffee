@@ -39,7 +39,7 @@ class ProductInterface
             @on_refresh() if @on_refresh?
 
     select: (id) =>
-        window.history.pushState id, "", "#{@path}/#{id}"
+        window.history.pushState id, "", "#{id}"
         @change id 
 
     change: (id) => 

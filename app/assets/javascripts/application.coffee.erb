@@ -1,3 +1,4 @@
+#= require utils
 #= require google_analytics
 #= require jquery
 #= require jquery_ujs
@@ -6,35 +7,26 @@
 #= require product_crud
 #= require icon_manager
 #= require art_manager
-# = require product_interface
+#= require product_interface
 
-hover_highlight = ->
-    $(".hover-highlight").css transition: "opacity 250ms"
-    $(".hover-highlight").on
-        mouseenter: (e) -> 
-            trigger_element = $(e.currentTarget)
-            trigger_element.siblings().filter(".hover-highlight").css opacity: 0.3
-            trigger_element.css opacity: 1
-
-        mouseleave: (e) -> 
-            trigger_element = $(e.currentTarget)
-            trigger_element.siblings().filter(".hover-highlight").css opacity: 1
-
-window.puts = (things) -> console.log things
+App.google_analytics = 
+    new GoogleAnalytics
+        library_path: "<%= asset_path 'analytics.js' %>"
 
 $(document).on "page:change", -> 
-    $(".product-crud").each -> new ProductCRUD 
-        main_element: $(this)
-        path: "<%= Rails.application.routes.url_helpers.products_path %>"
+    $(".product-crud").each -> 
+        App.product_crud = new ProductCRUD 
+            main_element: $(this)
+            path: "<%= Rails.application.routes.url_helpers.products_path %>"
 
     $("[data-icon-manager]").each -> new IconManager main_element: $(this)
     $("[data-art-manager]").each -> new ArtManager main_element: $(this)
     $("[data-product-interface]").each -> new ProductInterface 
         main_element: $(this)
         path: "<%= Rails.application.routes.url_helpers.products_path %>"
-        on_refresh: -> hover_highlight()
+        on_refresh: -> App.hover_highlight()
 
-    google_analytics = google_analytics ? new GoogleAnalytics
-    google_analytics.bind_events()
+    App.google_analytics = App.google_analytics ? new GoogleAnalytics 
+    App.google_analytics.bind_events()
     ga 'send', 'pageview'
-    hover_highlight()
+    App.hover_highlight()
