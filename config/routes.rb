@@ -27,8 +27,9 @@ Rails.application.routes.draw do
 
     resources :collections, path: "/coleções"
     resources :products, path: "/camisetas"
-    root to: "products#index"
     
     resources :images
     resources :orders
+    root to: "products#index"
+    match '*path' => redirect('/'), via: :get
 end
