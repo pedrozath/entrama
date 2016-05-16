@@ -20,7 +20,7 @@ class GoogleAnalytics
     bind_events: ->
         $("[data-analytics-purchase]").on "touchend click", (e) ->
             e.preventDefault()
-            alert "Você será agora redirecionado para o PagSeguro para efetuar o pagamento"
+            alert "Você será agora redirecionado para o PagSeguro onde poderá calcular o frete e efetuar o pagamento"
             ga 'ec:setAction', 'purchase', 
                 step: 3
                 id: session_id
