@@ -26,6 +26,8 @@ class OrdersController < ApplicationController
             }
         end
 
+        UserMailer.notify_sale.deliver
+
         response = payment.register
 
         if response.errors.any?
