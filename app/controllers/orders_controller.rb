@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
             }
         end
 
-        UserMailer.notify_sale.deliver
+        UserMailer.notify_sale(request.remote_ip).deliver
 
         response = payment.register
 
