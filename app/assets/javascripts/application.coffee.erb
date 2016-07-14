@@ -1,0 +1,32 @@
+#= require utils
+#= require google_analytics
+#= require facebook_api
+#= require jquery
+#= require jquery_ujs
+#= require processing
+#= require mustache.min
+#= require turbolinks
+#= require product_crud
+#= require icon_manager
+#= require art_manager
+#= require product_interface
+
+$(document).on "page:change", ->
+    new FacebookAPI
+    $(".product-crud").each ->
+        App.product_crud = new ProductCRUD
+            main_element: $(this)
+            path: "<%= Rails.application.routes.url_helpers.products_path %>"
+
+    $("[data-icon-manager]").each -> new IconManager main_element: $(this)
+    $("[data-art-manager]").each -> new ArtManager main_element: $(this)
+    $("[data-product-interface]").each -> new ProductInterface
+        main_element: $(this)
+        path: "<%= Rails.application.routes.url_helpers.products_path %>"
+        on_refresh: -> App.hover_highlight()
+
+    ga 'send', 'pageview'
+    App.hover_highlight()
+
+    App.google_analytics = App.google_analytics ? new GoogleAnalytics
+    App.google_analytics.bind_events()
