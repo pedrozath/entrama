@@ -1,13 +1,13 @@
 class ProductsController < ApplicationController
     before_filter :authorize, :only => [:update, :create, :edit_icon, :destroy]
-    
+
     def index
         respond_to do |f|
-            f.html do 
-                @products = Product.by_collection.unique
+            f.html do
+                @products = Product.unscoped.by_collection.unique
             end
-            f.json do 
-                @products = Product.by_icon
+            f.json do
+                @products = Product.unscoped.by_icon
                 render json: @products.as_json(methods: [:icon_image, :icon_image_big, :thumb], include: {
                     collection: {
                         methods: [:art_image, :thumb]
@@ -25,18 +25,18 @@ class ProductsController < ApplicationController
         @collection = @product.collection
 
         respond_to do |f|
-            f.html { 
+            f.html {
                 @facebook_meta_tags[:image] = @product.icon_image(:medium)
                 @facebook_meta_tags[:title] = "Camiseta #{@product.collection.title}"
                 render template: "collections/show"
             }
-            
-            f.json do  
+
+            f.json do
                 render json: @product.as_json(
                     methods: [:icon_image, :icon_image_big, :formatted_price, :available_sizes], include: {
                         collection: {
                             methods: [:art_image],
-                            include: { 
+                            include: {
                                 different_products: {
                                     methods: [:thumb]
                                 }
@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
 
     def update
         @product = Product.find params[:id]
-        
+
         if params[:field] == "collection"
             @product.collection = Collection.find_or_create_by title: params[:value].strip
             @product.save
@@ -88,7 +88,7 @@ class ProductsController < ApplicationController
             elsif params[:product].include? :use_existing_image
                 @image = Image.find params[:product][:use_existing_image]
             end
-            
+
             if @image
                 @product.create_icon image_id: @image.id
             end

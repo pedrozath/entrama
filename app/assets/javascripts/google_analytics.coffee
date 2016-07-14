@@ -1,9 +1,9 @@
 class GoogleAnalytics
-    constructor: (options) -> 
+    constructor: (options) ->
         @[k] = options[k] for k, v of options
 
-        window.GoogleAnalyticsObject ?= "ga" 
-        window.ga ?= => 
+        window.GoogleAnalyticsObject ?= "ga"
+        window.ga ?= =>
             ga.q ?= []
             ga.q.push arguments
             ga.l = 1 * new Date()
@@ -21,7 +21,7 @@ class GoogleAnalytics
         $("[data-analytics-purchase]").on "touchend click", (e) ->
             e.preventDefault()
             alert "Você será agora redirecionado para o PagSeguro onde poderá calcular o frete e efetuar o pagamento"
-            ga 'ec:setAction', 'purchase', 
+            ga 'ec:setAction', 'purchase',
                 step: 3
                 id: session_id
 
