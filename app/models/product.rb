@@ -20,11 +20,13 @@ class Product < ActiveRecord::Base
         self.collection.title
     end
 
-    # validates :size, :garb_type, :fabric, :color, 
+    # validates :size, :garb_type, :fabric, :color,
     # :quantity, :price, presence: true
 
     # # validates :icon, presence: true, unless: -> (p){p.use_existing_image.present?}
     # validates :use_existing_image, presence: true, if: "image.nil?"
+
+    default_scope { where('quantity > 0')}
 
     scope :by_icon, -> do
         @products_by_icon = Icon.order(:image_id).collect(&:product).compact
