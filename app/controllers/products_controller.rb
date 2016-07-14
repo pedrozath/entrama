@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
     def index
         respond_to do |f|
             f.html do
-                @products = Product.unscoped.by_collection.unique
+                @products = Product.by_collection.includes([{icon:[:image]}, :collection]).unique
             end
             f.json do
                 @products = Product.unscoped.by_icon
@@ -21,7 +21,7 @@ class ProductsController < ApplicationController
     end
 
     def show
-        @product = Product.find params[:id]
+        @product = Product.find(params[:id])
         @collection = @product.collection
 
         respond_to do |f|

@@ -39,7 +39,7 @@ class Product < ActiveRecord::Base
     end
 
     scope :unique, -> do
-        all.inject([]) do |memo, p|
+        all.includes(icon:[:image]).inject([]) do |memo, p|
             if !memo.map{|m|m.icon_image}.include?(p.icon_image)
                 memo << p
             end
@@ -95,7 +95,7 @@ class Product < ActiveRecord::Base
 
     def similar_products
         if icon
-            Icon.where(image_id: icon.image.id).map{|i|i.product}.compact
+            Icon.where(image_id: icon.image.id).includes(:product).map{|i|i.product}.compact
         else
             []
         end
